@@ -8,7 +8,7 @@ class basics3{
         if(mark >= 90)
         {
             System.out.println("You got A Grade");
-            System.out.println(" Ypu are Pass");
+            System.out.println(" You are Pass");
         }
         else if (mark >= 80)
         {
