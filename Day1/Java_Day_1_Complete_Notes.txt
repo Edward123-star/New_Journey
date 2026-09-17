@@ -1,0 +1,1054 @@
+JAVA DAY 1 - COMPLETE REVISION NOTES
+=====================================
+
+Purpose:
+These notes are a quick-reference guide for revising the Java fundamentals covered on Day 1. They are written with QA Automation learning in mind.
+
+DAY 1 TOPICS
+------------
+1. Java program structure
+2. Variables
+3. Data types
+4. String
+5. Printing output
+6. Arithmetic operators
+7. Comparison operators
+8. Logical operators
+9. if statement
+10. if-else
+11. else-if
+12. Nested if
+13. Scanner input
+14. String comparison using equals()
+15. equalsIgnoreCase()
+16. Boolean values
+17. NOT operator
+18. Combining conditions
+19. Basic QA-oriented examples
+20. Common mistakes and revision rules
+
+
+1. JAVA PROGRAM STRUCTURE
+-------------------------
+
+A basic Java program looks like:
+
+import java.util.Scanner;
+
+class basics
+{
+    public static void main(String[] args)
+    {
+        // code
+    }
+}
+
+Important parts:
+
+import
+------
+Used to bring classes from Java libraries into the program.
+
+Example:
+import java.util.Scanner;
+
+class
+-----
+Defines a class. Java code is normally organized inside classes.
+
+Example:
+class basics
+{
+}
+
+main()
+------
+The main method is the starting point of a normal Java application.
+
+public static void main(String[] args)
+{
+}
+
+The statements inside main() are executed when the program starts.
+
+Curly braces { }
+----------------
+They define a block of code.
+
+Semicolon ;
+-----------
+Most Java statements end with a semicolon.
+
+Example:
+int age = 26;
+
+Comments
+--------
+Single-line comment:
+// This is a comment
+
+Multi-line comment:
+/*
+   This is a comment
+*/
+
+
+2. VARIABLES
+------------
+
+A variable is a named storage location used to store a value.
+
+Example:
+int age = 26;
+
+Here:
+int     = data type
+age     = variable name
+26      = value
+
+General syntax:
+
+dataType variableName = value;
+
+Examples:
+
+int age = 26;
+double salary = 32000.50;
+char grade = 'A';
+boolean passed = true;
+String name = "Edward";
+
+The value of a variable can change:
+
+int score = 50;
+score = 80;
+
+Now score contains 80.
+
+Variable naming basics:
+- Use meaningful names.
+- Java variable names normally use camelCase.
+- Do not use spaces.
+- Java is case-sensitive.
+
+Good:
+testCount
+userName
+bugSeverity
+
+Less useful:
+a
+x
+abc
+
+For short practice programs, simple names are acceptable, but meaningful names are better in real projects.
+
+
+3. DATA TYPES
+-------------
+
+A data type tells Java what kind of value a variable stores.
+
+Important Day 1 types:
+
+int
+---
+Stores whole numbers.
+
+int age = 26;
+int bugCount = 10;
+
+double
+------
+Stores decimal numbers.
+
+double price = 99.99;
+double percentage = 75.5;
+
+char
+----
+Stores one character.
+
+char grade = 'A';
+
+A char uses single quotes.
+
+boolean
+-------
+Stores only true or false.
+
+boolean testPassed = true;
+boolean accountBlocked = false;
+
+String
+------
+Stores text.
+
+String name = "Edward";
+String severity = "Critical";
+
+String uses double quotes.
+
+Important:
+char  -> 'A'
+String -> "A"
+
+
+4. PRINTING OUTPUT
+------------------
+
+System.out.println()
+--------------------
+Prints text and moves to the next line.
+
+System.out.println("Hello");
+System.out.println("World");
+
+Output:
+Hello
+World
+
+System.out.print()
+------------------
+Prints text without automatically moving to the next line.
+
+System.out.print("Hello ");
+System.out.print("World");
+
+Output:
+Hello World
+
+String concatenation
+--------------------
+The + operator can join text and variable values.
+
+String name = "Edward";
+int age = 26;
+
+System.out.println("Name: " + name);
+System.out.println("Age: " + age);
+
+Output:
+Name: Edward
+Age: 26
+
+
+5. ARITHMETIC OPERATORS
+-----------------------
+
+Used for mathematical calculations.
+
++   Addition
+-   Subtraction
+*   Multiplication
+/   Division
+%   Remainder (modulus)
+
+Examples:
+
+int a = 10;
+int b = 3;
+
+a + b  -> 13
+a - b  -> 7
+a * b  -> 30
+a / b  -> 3
+a % b  -> 1
+
+The % operator is especially useful in programming.
+
+Example:
+if (number % 2 == 0)
+{
+    System.out.println("Even");
+}
+
+If the remainder after dividing by 2 is zero, the number is even.
+
+
+6. COMPARISON OPERATORS
+-----------------------
+
+Comparison operators compare two values and produce a boolean result: true or false.
+
+==    Equal to
+!=    Not equal to
+>     Greater than
+<     Less than
+>=    Greater than or equal to
+<=    Less than or equal to
+
+Examples:
+
+int age = 26;
+
+age >= 18       -> true
+age < 18        -> false
+age == 26       -> true
+age != 26       -> false
+
+Example:
+
+if (age >= 18)
+{
+    System.out.println("Adult");
+}
+
+Important:
+For primitive values such as int and boolean, == compares values.
+
+For String content, use equals() rather than ==.
+
+
+7. LOGICAL OPERATORS
+--------------------
+
+Logical operators combine or reverse conditions.
+
+&&  AND
+||  OR
+!   NOT
+
+AND (&&)
+--------
+Both conditions must be true.
+
+Example:
+
+if (age >= 18 && age <= 60)
+{
+    System.out.println("Valid age");
+}
+
+The condition is true only when:
+age >= 18 is true
+AND
+age <= 60 is true
+
+OR (||)
+-------
+At least one condition must be true.
+
+Example:
+
+if (day.equals("Saturday") || day.equals("Sunday"))
+{
+    System.out.println("Weekend");
+}
+
+If either condition is true, the complete condition is true.
+
+NOT (!)
+-------
+Reverses a boolean value.
+
+boolean blocked = false;
+
+if (!blocked)
+{
+    System.out.println("Login allowed");
+}
+
+Because:
+blocked = false
+!blocked = true
+
+
+8. if STATEMENT
+---------------
+
+An if statement executes code only when its condition is true.
+
+Syntax:
+
+if (condition)
+{
+    // code
+}
+
+Example:
+
+int age = 20;
+
+if (age >= 18)
+{
+    System.out.println("Allowed");
+}
+
+If age is 20, the condition is true and the message is printed.
+
+
+9. if-else
+----------
+
+Used when there are two possible paths.
+
+Syntax:
+
+if (condition)
+{
+    // true case
+}
+else
+{
+    // false case
+}
+
+Example:
+
+int age = 16;
+
+if (age >= 18)
+{
+    System.out.println("Allowed");
+}
+else
+{
+    System.out.println("Not allowed");
+}
+
+Only one branch executes.
+
+
+10. else-if
+-----------
+
+Used when there are multiple possible conditions.
+
+Example:
+
+int mark = 75;
+
+if (mark >= 90)
+{
+    System.out.println("A");
+}
+else if (mark >= 75)
+{
+    System.out.println("B");
+}
+else if (mark >= 40)
+{
+    System.out.println("Pass");
+}
+else
+{
+    System.out.println("Fail");
+}
+
+Java checks the conditions from top to bottom and executes the first matching branch.
+
+
+11. NESTED if
+------------
+
+A nested if means an if statement inside another if statement.
+
+Example:
+
+if (age >= 18)
+{
+    if (hasID)
+    {
+        System.out.println("Access allowed");
+    }
+}
+
+The inner condition is checked only when the outer condition is true.
+
+QA example:
+
+if (testPassed)
+{
+    if (severity.equals("Critical"))
+    {
+        System.out.println("Escalate immediately");
+    }
+}
+
+
+12. SCANNER - USER INPUT
+------------------------
+
+Scanner is used to receive input from the user.
+
+Import it:
+
+import java.util.Scanner;
+
+Create a Scanner:
+
+Scanner scan = new Scanner(System.in);
+
+String input:
+String name = scan.nextLine();
+
+Integer:
+int age = scan.nextInt();
+
+Double:
+double price = scan.nextDouble();
+
+Boolean:
+boolean status = scan.nextBoolean();
+
+Example:
+
+Scanner scan = new Scanner(System.in);
+
+System.out.print("Enter your name: ");
+String name = scan.nextLine();
+
+System.out.print("Enter your age: ");
+int age = scan.nextInt();
+
+System.out.println("Name: " + name);
+System.out.println("Age: " + age);
+
+
+Important Scanner issue:
+------------------------
+If nextInt() is followed by nextLine(), the newline left by nextInt() can be consumed by nextLine().
+
+Example:
+
+int age = scan.nextInt();
+scan.nextLine();
+String name = scan.nextLine();
+
+The extra nextLine() consumes the leftover newline.
+
+This is a common beginner issue.
+
+
+13. STRING COMPARISON
+---------------------
+
+Do NOT normally compare String content using ==.
+
+Incorrect for content comparison:
+
+if (name == "Edward")
+
+Use:
+
+if (name.equals("Edward"))
+
+Example:
+
+String name = "Edward";
+
+if (name.equals("Edward"))
+{
+    System.out.println("Correct name");
+}
+
+equals() checks whether the String contents are equal.
+
+
+14. equalsIgnoreCase()
+----------------------
+
+equalsIgnoreCase() compares String content without caring about uppercase/lowercase.
+
+Example:
+
+String browser = "chrome";
+
+if (browser.equalsIgnoreCase("Chrome"))
+{
+    System.out.println("Chrome selected");
+}
+
+All of these can match:
+
+Chrome
+chrome
+CHROME
+ChRoMe
+
+This is useful when user input can have different capitalization.
+
+
+15. BOOLEAN
+----------
+
+A boolean stores only:
+
+true
+false
+
+Example:
+
+boolean testResult = true;
+
+if (testResult)
+{
+    System.out.println("Test passed");
+}
+
+You can also use a boolean variable directly in a condition.
+
+Example:
+
+boolean accountBlocked = false;
+
+if (!accountBlocked)
+{
+    System.out.println("Login allowed");
+}
+
+
+16. NOT OPERATOR
+----------------
+
+The ! operator reverses a boolean condition.
+
+Examples:
+
+!true  -> false
+!false -> true
+
+Example:
+
+boolean accountBlocked = false;
+
+if (!accountBlocked)
+{
+    System.out.println("Account is not blocked");
+}
+
+This is equivalent to:
+
+if (accountBlocked == false)
+{
+    System.out.println("Account is not blocked");
+}
+
+The ! version is commonly used and cleaner.
+
+
+17. COMBINING CONDITIONS
+------------------------
+
+Conditions can be combined to represent real rules.
+
+Example:
+
+A person is eligible if:
+- experience is between 1 and 5 years
+- programming language is Java
+- test result is true
+
+Example:
+
+if (experience >= 1 &&
+    experience <= 5 &&
+    language.equals("Java") &&
+    testResult)
+{
+    System.out.println("Eligible");
+}
+
+All conditions connected with && must be true.
+
+
+18. QA EXAMPLE - AGE VALIDATION
+-------------------------------
+
+Example:
+
+int age = 26;
+
+if (age >= 18 && age <= 60)
+{
+    System.out.println("Valid age");
+}
+else
+{
+    System.out.println("Invalid age");
+}
+
+Concept:
+AND is useful when multiple requirements must be satisfied.
+
+
+19. QA EXAMPLE - EXAM ELIGIBILITY
+---------------------------------
+
+Requirements:
+- Attendance >= 75
+- Mark >= 40
+
+Example:
+
+if (attendance >= 75 && mark >= 40)
+{
+    System.out.println("Eligible");
+}
+else
+{
+    System.out.println("Not eligible");
+}
+
+
+20. QA EXAMPLE - WEEKEND
+------------------------
+
+Example:
+
+String day = "Saturday";
+
+if (day.equals("Saturday") || day.equals("Sunday"))
+{
+    System.out.println("Weekend");
+}
+else
+{
+    System.out.println("Weekday");
+}
+
+OR is useful when multiple acceptable values exist.
+
+
+21. QA EXAMPLE - BROWSER VALIDATION
+-----------------------------------
+
+Example:
+
+String browser = "Chrome";
+
+if (browser.equalsIgnoreCase("Chrome") ||
+    browser.equalsIgnoreCase("Firefox") ||
+    browser.equalsIgnoreCase("Edge"))
+{
+    System.out.println("Supported browser");
+}
+else
+{
+    System.out.println("Unsupported browser");
+}
+
+This is similar to checking whether a test environment is supported.
+
+
+22. QA EXAMPLE - BUG SEVERITY ESCALATION
+----------------------------------------
+
+Suppose:
+- Critical bugs must be escalated.
+- Major bugs must be escalated if reproducible.
+- Minor bugs do not require escalation.
+
+Example:
+
+if (severity.equals("Critical") ||
+    (severity.equals("Major") && reproduce))
+{
+    System.out.println("Escalate bug");
+}
+else
+{
+    System.out.println("No escalation required");
+}
+
+Important operator precedence:
+&& is evaluated before ||.
+
+Therefore:
+
+severity.equals("Critical") ||
+severity.equals("Major") && reproduce
+
+is treated as:
+
+severity.equals("Critical") ||
+(severity.equals("Major") && reproduce)
+
+Using parentheses can make the intended logic clearer.
+
+
+23. STRING INPUT + CONDITIONAL LOGIC
+------------------------------------
+
+Example:
+
+Scanner scan = new Scanner(System.in);
+
+System.out.print("Enter browser: ");
+String browser = scan.nextLine();
+
+if (browser.equalsIgnoreCase("Chrome"))
+{
+    System.out.println("Chrome selected");
+}
+else if (browser.equalsIgnoreCase("Firefox"))
+{
+    System.out.println("Firefox selected");
+}
+else
+{
+    System.out.println("Unsupported browser");
+}
+
+This combines:
+- Scanner
+- String
+- equalsIgnoreCase()
+- if
+- else-if
+- else
+
+
+24. COMMON MISTAKES FROM DAY 1
+------------------------------
+
+Mistake 1:
+Using == for String content.
+
+Avoid:
+if (name == "Edward")
+
+Use:
+if (name.equals("Edward"))
+
+Mistake 2:
+Using equals() on an int.
+
+Wrong:
+if (age.equals(18))
+
+Correct:
+if (age == 18)
+
+Mistake 3:
+Forgetting ! when you need the opposite boolean condition.
+
+Example:
+boolean blocked = false;
+
+To allow login:
+if (!blocked)
+
+Mistake 4:
+Using = instead of == in a comparison.
+
+= means assignment.
+
+== means comparison.
+
+Example:
+age = 18;       // assign 18
+age == 18       // check whether age is 18
+
+Mistake 5:
+Forgetting semicolon.
+
+Example:
+int age = 26;
+
+Mistake 6:
+Incorrect String capitalization.
+
+String comparisons using equals() are case-sensitive.
+
+"Chrome".equals("chrome") -> false
+
+Use equalsIgnoreCase() when appropriate.
+
+Mistake 7:
+Not considering Scanner's newline behavior after nextInt().
+
+Use:
+scan.nextLine();
+
+when necessary before reading a full line.
+
+
+25. QUICK OPERATOR CHEAT SHEET
+------------------------------
+
+Arithmetic:
++   add
+-   subtract
+*   multiply
+/   divide
+%   remainder
+
+Comparison:
+==  equal
+!=  not equal
+>   greater than
+<   less than
+>=  greater than or equal
+<=  less than or equal
+
+Logical:
+&&  AND
+||  OR
+!   NOT
+
+
+26. DAY 1 CORE RULES TO REMEMBER
+--------------------------------
+
+1. A variable stores a value.
+2. A data type tells Java what kind of value is stored.
+3. int is for whole numbers.
+4. double is for decimal numbers.
+5. char is for one character.
+6. boolean is true or false.
+7. String is for text.
+8. Use System.out.println() to print with a new line.
+9. Use System.out.print() to print without a new line.
+10. Use % to find a remainder.
+11. Comparison operators produce true or false.
+12. && means all connected conditions must be true.
+13. || means at least one connected condition must be true.
+14. ! reverses a condition.
+15. Use if/else-if/else for decision making.
+16. Use nested if when one decision depends on another.
+17. Use Scanner for user input.
+18. Use equals() to compare String content.
+19. Use equalsIgnoreCase() when capitalization should not matter.
+20. Java is case-sensitive.
+21. Watch variable scope and curly braces.
+22. Use parentheses to make complicated conditions clear.
+
+
+27. DAY 1 QA AUTOMATION CONNECTION
+----------------------------------
+
+The concepts from Day 1 are directly useful in automation.
+
+Variables:
+Store browser names, URLs, usernames, test data, counts, statuses, etc.
+
+Data types:
+Store IDs, prices, counts, test results, text, and configuration values.
+
+if/else:
+Used to make decisions based on test results.
+
+Boolean:
+Used for conditions such as:
+isDisplayed
+isEnabled
+isSelected
+testPassed
+
+String:
+Used for:
+page titles
+URLs
+element text
+browser names
+error messages
+
+&& and ||:
+Used to combine validation conditions.
+
+Scanner:
+Useful for Java practice and understanding input handling. In real automation frameworks, test data commonly comes from files, configuration, databases, APIs, or test-data providers instead of interactive Scanner input.
+
+Example automation-style logic:
+
+boolean elementDisplayed = true;
+String actualTitle = "Login Page";
+String expectedTitle = "Login Page";
+
+if (elementDisplayed && actualTitle.equals(expectedTitle))
+{
+    System.out.println("Test passed");
+}
+else
+{
+    System.out.println("Test failed");
+}
+
+This is the type of basic logic that later appears inside Selenium/TestNG automation.
+
+
+28. DAY 1 FINAL REVISION EXAMPLE
+-------------------------------
+
+A simple QA validation program can combine almost everything learned:
+
+import java.util.Scanner;
+
+class Day1Revision
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Enter username: ");
+        String username = scan.nextLine();
+
+        System.out.print("Enter age: ");
+        int age = scan.nextInt();
+        scan.nextLine();
+
+        System.out.print("Enter browser: ");
+        String browser = scan.nextLine();
+
+        boolean blocked = false;
+
+        if (username.equals("Edward") &&
+            age >= 18 &&
+            (browser.equalsIgnoreCase("Chrome") ||
+             browser.equalsIgnoreCase("Firefox")) &&
+            !blocked)
+        {
+            System.out.println("Validation successful");
+        }
+        else
+        {
+            System.out.println("Validation failed");
+        }
+    }
+}
+
+This example demonstrates:
+- class
+- main()
+- Scanner
+- String
+- int
+- boolean
+- if/else
+- equals()
+- equalsIgnoreCase()
+- && 
+- ||
+- !
+- >=
+
+
+DAY 1 CHECKLIST
+---------------
+
+[ ] I understand what a variable is.
+[ ] I understand Java data types.
+[ ] I can create int, double, char, boolean and String variables.
+[ ] I understand print() and println().
+[ ] I know arithmetic operators.
+[ ] I know comparison operators.
+[ ] I understand &&, || and !.
+[ ] I can write if/else-if/else conditions.
+[ ] I understand nested if.
+[ ] I can take input using Scanner.
+[ ] I know the nextInt() + nextLine() issue.
+[ ] I know that String content should be compared using equals().
+[ ] I understand equalsIgnoreCase().
+[ ] I can combine multiple conditions.
+[ ] I can write basic QA validation logic.
+
+DAY 1 COMPLETE
+==============
+
+Main goal achieved:
+You can now write basic Java programs that accept input, store data in variables, compare values, make decisions, and combine multiple conditions.
+
+Next learning stage:
+Day 2 = Loops + Methods.
