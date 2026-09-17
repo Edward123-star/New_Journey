@@ -1,0 +1,674 @@
+JAVA DAY 2 — COMPLETE REVISION NOTES
+====================================
+
+TOPIC: LOOPS + METHODS STATUS
+Day 2 completed: LOOPS
+Methods: introduced briefly, full training moved to Day 3.
+
+Use this file as your Day 2 recall/reference document.
+
+1. WHAT IS A LOOP?
+------------------
+A loop repeatedly executes a block of code while a condition allows it.
+
+Example:
+for(int i = 1; i <= 10; i++)
+{
+    System.out.println("Test Case " + i);
+}
+
+Why loops matter in QA automation:
+- Execute repeated test cases
+- Run multiple test-data combinations
+- Retry actions
+- Process repeated scenarios
+- Stop when a failure/condition occurs
+
+2. FOR LOOP
+-----------
+Syntax:
+for(initialization; condition; update)
+{
+    // code
+}
+
+Example:
+for(int i = 1; i <= 5; i++)
+{
+    System.out.println(i);
+}
+
+Execution:
+1. int i = 1 -> initialize
+2. i <= 5 -> check condition
+3. Run loop body
+4. i++ -> increase i
+5. Repeat until condition is false
+
+Memory:
+for = commonly used when a count/range is known.
+
+3. i++
+-------
+i++ means:
+i = i + 1;
+
+Example:
+int i = 1;
+i++;
+// i is now 2
+
+Similarly:
+i-- means i = i - 1.
+
+4. EVEN NUMBERS AND %
+----------------------
+% is the modulus/remainder operator.
+
+Examples:
+10 % 2 = 0
+11 % 2 = 1
+
+An even number satisfies:
+number % 2 == 0
+
+Example:
+for(int i = 1; i <= 10; i++)
+{
+    if(i % 2 == 0)
+    {
+        System.out.println(i);
+    }
+}
+
+Output:
+2
+4
+6
+8
+10
+
+5. USER-CONTROLLED FOR LOOP
+---------------------------
+The user can provide the starting and ending values.
+
+Example:
+Scanner scan = new Scanner(System.in);
+
+int a = scan.nextInt();
+int b = scan.nextInt();
+
+for(int i = a; i <= b; i++)
+{
+    System.out.println("i's value is: " + i);
+}
+
+If a = 5 and b = 10, values 5 through 10 are printed.
+
+6. WHILE LOOP
+-------------
+Syntax:
+while(condition)
+{
+    // code
+}
+
+Example:
+int i = 1;
+
+while(i <= 5)
+{
+    System.out.println(i);
+    i++;
+}
+
+A while loop checks the condition BEFORE executing the body.
+
+Memory:
+while = repeat while the condition is true.
+
+IMPORTANT:
+Make sure something inside the loop changes the condition, otherwise an infinite loop can occur.
+
+7. FOR VS WHILE
+---------------
+for:
+Usually convenient when the range/count is known.
+
+while:
+Usually convenient when repetition depends on a condition and the number of repetitions may not be known beforehand.
+
+8. RANDOM CLASS
+---------------
+Import:
+import java.util.Random;
+
+Create:
+Random rand = new Random();
+
+Example:
+int number = rand.nextInt(10);
+
+rand.nextInt(10) returns:
+0 to 9
+
+General rule:
+rand.nextInt(n) -> 0 through n - 1.
+
+9. RANDOM NUMBER WITH WHILE
+---------------------------
+If a new random number is required every iteration, generate it inside the loop.
+
+Example:
+Random rand = new Random();
+
+int target = 5;
+int randomNumber = rand.nextInt(10);
+
+while(randomNumber != target)
+{
+    System.out.println("Random number: " + randomNumber);
+    randomNumber = rand.nextInt(10);
+}
+
+System.out.println("Target reached: " + randomNumber);
+
+Common mistake:
+int randomNumber = rand.nextInt(10);
+
+while(randomNumber != target)
+{
+    System.out.println(randomNumber);
+}
+
+Here randomNumber never changes, so the loop can become infinite.
+
+10. DO-WHILE LOOP
+-----------------
+Syntax:
+do
+{
+    // code
+}
+while(condition);
+
+Example:
+int i = 1;
+
+do
+{
+    System.out.println(i);
+    i++;
+}
+while(i <= 5);
+
+Key difference:
+while -> checks first, then executes.
+do-while -> executes once first, then checks.
+
+Therefore a do-while always executes its body at least once.
+
+11. DO-WHILE LOGIN EXAMPLE
+--------------------------
+A login system is a good example because the user should get at least one attempt.
+
+Example:
+Scanner scan = new Scanner(System.in);
+
+String name;
+String password;
+
+do
+{
+    System.out.print("Please enter the user name: ");
+    name = scan.nextLine();
+
+    System.out.print("Please enter the password: ");
+    password = scan.nextLine();
+
+    if(!name.equals("Edward") || !password.equals("Hari@123"))
+    {
+        System.out.println("Incorrect username/password. Try again.");
+    }
+}
+while(!name.equals("Edward") || !password.equals("Hari@123"));
+
+System.out.println("Login successful");
+
+The loop continues while either the username OR password is incorrect.
+
+12. BREAK
+---------
+break immediately exits the entire loop.
+
+Example:
+for(int i = 1; i <= 10; i++)
+{
+    if(i == 5)
+    {
+        break;
+    }
+
+    System.out.println(i);
+}
+
+Output:
+1
+2
+3
+4
+
+break does not merely skip 5; it stops the loop completely.
+
+QA use:
+Stop executing further attempts when login succeeds or when a critical failure occurs.
+
+13. CONTINUE
+------------
+continue skips the current iteration and moves to the next iteration.
+
+Example:
+for(int i = 1; i <= 5; i++)
+{
+    if(i == 3)
+    {
+        continue;
+    }
+
+    System.out.println(i);
+}
+
+Output:
+1
+2
+4
+5
+
+Memory:
+break = stop the loop.
+continue = skip this iteration.
+
+14. CONTINUE AND INFINITE LOOP
+-----------------------------
+Be careful when continue is used in a while loop.
+
+Bad example:
+int count = 1;
+
+while(count <= 5)
+{
+    if(count == 3)
+    {
+        continue;
+    }
+
+    count++;
+}
+
+When count reaches 3, continue skips count++.
+count stays 3 forever.
+The condition count <= 5 remains true.
+
+Lesson:
+Before using continue, check which statements below it will be skipped.
+
+15. SCANNER WITH LOOPS
+----------------------
+Import:
+import java.util.Scanner;
+
+Create:
+Scanner scan = new Scanner(System.in);
+
+Common inputs:
+String name = scan.nextLine();
+int age = scan.nextInt();
+boolean result = scan.nextBoolean();
+
+Important Scanner issue:
+After nextInt(), the newline can remain in the input buffer.
+
+Example:
+int age = scan.nextInt();
+scan.nextLine();
+String name = scan.nextLine();
+
+The extra nextLine() consumes the remaining newline.
+
+16. LOOP CONDITIONS WITH LOGICAL OPERATORS
+------------------------------------------
+&& = AND
+Both conditions must be true.
+
+Example:
+while(age >= 18 && age <= 60)
+{
+    // code
+}
+
+|| = OR
+At least one condition must be true.
+
+Example:
+while(!usernameCorrect || !passwordCorrect)
+{
+    // try again
+}
+
+! = NOT
+Reverses a boolean value/condition.
+
+Example:
+boolean accountBlocked = false;
+
+while(!accountBlocked)
+{
+    // processing allowed
+}
+
+17. LOGIN LOGIC
+---------------
+Example:
+while(!name.equals("Edward") || !password.equals("Hari@123"))
+{
+    // ask again
+}
+
+Meaning:
+Continue while the username is incorrect OR the password is incorrect.
+
+Equivalent logical form:
+while(!(name.equals("Edward") && password.equals("Hari@123")))
+
+Successful login requires:
+username correct AND password correct.
+
+18. INFINITE LOOP
+-----------------
+An infinite loop never reaches a false condition or exit point.
+
+Bad:
+int i = 1;
+
+while(i <= 5)
+{
+    System.out.println(i);
+}
+
+i never changes, so i <= 5 remains true.
+
+Correct:
+int i = 1;
+
+while(i <= 5)
+{
+    System.out.println(i);
+    i++;
+}
+
+Another possible infinite loop:
+while(true)
+{
+    // code
+}
+
+This can be intentional only when there is a reliable exit such as break.
+
+19. VARIABLE SCOPE
+------------------
+Scope means where a variable can be accessed.
+
+Example:
+if(true)
+{
+    int number = 10;
+    System.out.println(number);
+}
+
+number is declared inside the block and is not normally available outside that block.
+
+Similarly:
+for(int i = 1; i <= 5; i++)
+{
+    System.out.println(i);
+}
+
+// i is not available here
+
+Memory:
+A variable declared inside { } generally belongs to that block.
+
+20. QA EXAMPLE — EXECUTE 10 TEST CASES
+--------------------------------------
+int testCount = 1;
+
+while(testCount <= 10)
+{
+    System.out.println("Executing Test Case " + testCount);
+    testCount++;
+}
+
+The counter changes:
+1 -> 2 -> 3 -> ... -> 10 -> 11
+
+At 11:
+11 <= 10 is false, so the loop stops.
+
+21. QA EXAMPLE — STOP WHEN A TEST FAILS
+---------------------------------------
+Scanner scan = new Scanner(System.in);
+
+int testCount = 1;
+
+while(testCount <= 10)
+{
+    System.out.print("Enter test result (true/false): ");
+    boolean status = scan.nextBoolean();
+
+    if(status)
+    {
+        System.out.println("Test case passed");
+    }
+    else
+    {
+        System.out.println("Test case failed");
+        break;
+    }
+
+    testCount++;
+}
+
+if(testCount > 10)
+{
+    System.out.println("All test cases passed.");
+}
+else
+{
+    System.out.println("Testing stopped because a test failed.");
+}
+
+Concepts combined:
+while + Scanner + boolean + if/else + break + counter.
+
+22. GAMING QA CONNECTION
+------------------------
+For game testing, loops can represent repeated testing across:
+- Multiple test cases
+- Builds
+- Platforms
+- Save/load scenarios
+- Input combinations
+- Repeated gameplay actions
+
+Example:
+for(int build = 1; build <= 10; build++)
+{
+    System.out.println("Testing build " + build);
+}
+
+A critical issue could be used as a reason to stop:
+if(criticalBugFound)
+{
+    break;
+}
+
+23. COMMON DAY 2 MISTAKES
+-------------------------
+1. Forgetting i++ or another update -> possible infinite loop.
+2. Putting continue before the counter update -> possible infinite loop.
+3. Thinking rand.nextInt(10) can return 10 -> it cannot; maximum is 9.
+4. Using break when you only want to skip one iteration -> use continue when appropriate.
+5. Forgetting that continue skips all remaining statements in that iteration.
+6. Forgetting nextLine() after nextInt() when switching to line input.
+7. Thinking while and do-while behave identically -> do-while executes at least once.
+8. Trying to access a variable outside its scope.
+
+24. LOOP CHEAT SHEET
+-------------------
+for:
+for(int i = 1; i <= 10; i++) { }
+
+while:
+while(condition) { }
+
+do-while:
+do { } while(condition);
+
+break:
+break;
+
+continue:
+continue;
+
+increment:
+i++;
+
+decrement:
+i--;
+
+remainder:
+number % 2
+
+AND:
+&&
+
+OR:
+||
+
+NOT:
+!
+
+25. DAY 2 METHODS STATUS
+------------------------
+Methods were introduced briefly, but full Methods training is moved to Day 3.
+
+Basic idea:
+A method is a named, reusable block of code.
+
+Example:
+public void orderDrink()
+{
+    // drink selection code
+}
+
+It can be called from another method:
+server1.orderDrink();
+
+Day 3 will cover:
+1. Simple void methods
+2. Methods with one parameter
+3. Multiple parameters
+4. Return values
+5. int-returning methods
+6. boolean-returning methods
+7. Methods with QA automation examples
+8. Practice
+9. Revision and coding test
+
+26. DAY 2 REVISION CHECKLIST
+----------------------------
+[ ] What is a loop?
+[ ] for loop syntax and execution order
+[ ] i++
+[ ] Modulus %
+[ ] Even-number checking
+[ ] User-controlled for loop
+[ ] while loop
+[ ] do-while loop
+[ ] while vs do-while
+[ ] break
+[ ] continue
+[ ] break vs continue
+[ ] Infinite loops
+[ ] How to prevent infinite loops
+[ ] Random class
+[ ] rand.nextInt(n)
+[ ] Scanner with loops
+[ ] nextInt() + nextLine() issue
+[ ] &&, ||, !
+[ ] Variable scope
+[ ] QA use of loops
+
+27. QUICK INTERVIEW QUESTIONS
+-----------------------------
+Q: What is a loop?
+A: A loop repeatedly executes a block of code while a condition is satisfied.
+
+Q: for vs while?
+A: for is commonly used for a known range/count; while is commonly used for condition-controlled repetition.
+
+Q: while vs do-while?
+A: while checks before execution; do-while executes once before checking.
+
+Q: What does break do?
+A: Immediately exits the loop.
+
+Q: What does continue do?
+A: Skips the current iteration and proceeds to the next iteration.
+
+Q: What is an infinite loop?
+A: A loop that never reaches a false condition or exit point.
+
+Q: What does i++ mean?
+A: Increase i by 1.
+
+Q: What does % do?
+A: Returns the remainder.
+
+Q: What does rand.nextInt(10) return?
+A: A value from 0 through 9.
+
+Q: Why can continue cause an infinite loop?
+A: If continue skips the statement that changes the loop condition, the condition may never become false.
+
+28. DAY 2 FINAL SUMMARY
+-----------------------
+Day 2 taught how Java repeats and controls repeated code.
+
+Main loops:
+- for
+- while
+- do-while
+
+Loop controls:
+- break
+- continue
+
+Supporting concepts:
+- Scanner
+- boolean
+- &&, ||, !
+- Random
+- ++
+- %
+- variable scope
+- infinite-loop prevention
+
+Most importantly, these were practiced with QA and gaming-testing scenarios, making the concepts directly relevant to future Selenium/TestNG automation.
+
+STATUS:
+LOOPS = COMPLETED
+METHODS = MOVED TO DAY 3
+
+NEXT:
+DAY 3 -> METHODS + REMAINING JAVA FUNDAMENTALS
