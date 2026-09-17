@@ -1052,3 +1052,4 @@ You can now write basic Java programs that accept input, store data in variables
 
 Next learning stage:
 Day 2 = Loops + Methods.
+.
