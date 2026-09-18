@@ -1,0 +1,933 @@
+JAVA DAY 3 — COMPLETE NOTES
+Topic: Methods
+Focus: Reusable code, parameters, return values, and QA/Gaming examples
+
+============================================================
+1. WHAT IS A METHOD?
+============================================================
+
+A method is a named block of code designed to perform a specific task.
+
+Example:
+
+public static void login()
+{
+    System.out.println("Username entered");
+    System.out.println("Password entered");
+    System.out.println("Login successful");
+}
+
+Calling the method:
+
+login();
+
+Creating a method does NOT execute it. The method runs when it is called.
+
+General structure:
+
+public static void methodName()
+{
+    // code
+}
+
+Main parts:
+- public -> access modifier
+- static -> method belongs to the class
+- void -> method does not return a value
+- methodName -> name of the method
+- () -> parameters go here
+- {} -> method body
+
+
+============================================================
+2. WHY DO WE USE METHODS?
+============================================================
+
+Methods allow us to:
+- Reuse code
+- Avoid repeating the same code
+- Organize programs
+- Make code easier to read
+- Make maintenance easier
+- Break a large program into smaller tasks
+
+QA example:
+
+public static void openBrowser()
+{
+    System.out.println("Opening browser");
+}
+
+public static void login()
+{
+    System.out.println("Logging in");
+}
+
+public static void logout()
+{
+    System.out.println("Logging out");
+}
+
+public static void closeBrowser()
+{
+    System.out.println("Closing browser");
+}
+
+Then:
+
+openBrowser();
+login();
+logout();
+closeBrowser();
+
+The methods represent separate testing actions.
+
+
+============================================================
+3. METHOD VS LOOP
+============================================================
+
+LOOP:
+Answers: "How many times should something happen?"
+
+METHOD:
+Answers: "What task should I perform?"
+
+Example:
+
+for(int i = 1; i <= 10; i++)
+{
+    login();
+}
+
+Method = reusable task
+Loop = repetition
+
+A loop and a method solve different problems and can be used together.
+
+
+============================================================
+4. VOID METHODS
+============================================================
+
+A void method performs an action but does not return a value.
+
+Example:
+
+public static void login()
+{
+    System.out.println("Login successful");
+}
+
+Call:
+
+login();
+
+Another example:
+
+public static void wrong()
+{
+    System.out.println("Wrong username or password");
+}
+
+
+============================================================
+5. METHOD WITH PARAMETERS
+============================================================
+
+A parameter allows information to be passed into a method.
+
+Example:
+
+public static void greet(String name)
+{
+    System.out.println("Hello " + name);
+}
+
+Call:
+
+greet("Edward");
+
+Output:
+
+Hello Edward
+
+The same method can receive different values:
+
+greet("Edward");
+greet("Hariharan");
+greet("John");
+
+
+============================================================
+6. PARAMETER VS ARGUMENT
+============================================================
+
+PARAMETER:
+The variable declared in the method.
+
+Example:
+
+public static void greet(String name)
+
+"name" is the parameter.
+
+ARGUMENT:
+The actual value passed when calling the method.
+
+Example:
+
+greet("Edward");
+
+"Edward" is the argument.
+
+Easy way to remember:
+
+Parameter = placeholder
+Argument = actual value
+
+
+============================================================
+7. QA EXAMPLE — BROWSER PARAMETER
+============================================================
+
+public static void testBrowser(String browser)
+{
+    System.out.println("Selected browser is " + browser);
+}
+
+Using Scanner:
+
+Scanner scan = new Scanner(System.in);
+
+String browser;
+
+System.out.print("Please enter the browser name: ");
+browser = scan.nextLine();
+
+testBrowser(browser);
+
+If the user enters Chrome, the method effectively receives:
+
+testBrowser("Chrome");
+
+Output:
+
+Selected browser is Chrome.
+
+
+============================================================
+8. MULTIPLE PARAMETERS
+============================================================
+
+A method can receive multiple parameters.
+
+Example:
+
+public static void testGame(String game, String platform, double version)
+{
+    System.out.println("Selected game is " + game);
+    System.out.println("Selected Platform is " + platform);
+    System.out.println("Build version is " + version);
+}
+
+Call:
+
+testGame("Assassin's Creed", "PS5", 1.05);
+
+The values are matched by order:
+
+game -> "Assassin's Creed"
+platform -> "PS5"
+version -> 1.05
+
+Parameters can have different data types.
+
+
+============================================================
+9. METHODS THAT RETURN VALUES
+============================================================
+
+A void method does not return a value.
+
+A method can instead calculate or check something and send a result back.
+
+Example:
+
+public static int add(int a, int b)
+{
+    return a + b;
+}
+
+Calling:
+
+int result = add(10, 20);
+
+Now:
+
+result = 30
+
+The return keyword sends a value back to the caller.
+
+
+============================================================
+10. RETURN INT
+============================================================
+
+Practice example:
+
+public static int calculateTotal(int price1, int price2, int price3)
+{
+    int total = price1 + price2 + price3;
+    return total;
+}
+
+In main:
+
+int total = calculateTotal(price1, price2, price3);
+
+If:
+
+price1 = 100
+price2 = 250
+price3 = 350
+
+Then:
+
+total = 700
+
+Important:
+If a method is declared as public static int, it must return an int value.
+
+
+============================================================
+11. BOOLEAN RETURN METHODS
+============================================================
+
+A boolean method returns only true or false.
+
+Example:
+
+public static boolean isAdult(int age)
+{
+    if(age >= 18)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+Calling:
+
+boolean result = isAdult(26);
+
+result becomes true.
+
+
+============================================================
+12. BOOLEAN RETURN — QA EXAMPLE
+============================================================
+
+public static boolean testResult(double mark)
+{
+    if(mark >= 40)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+In main:
+
+double mark;
+mark = scan.nextDouble();
+
+boolean result = testResult(mark);
+
+if(result)
+{
+    System.out.println("The student has passed the exam");
+}
+else
+{
+    System.out.println("The student has failed the exam");
+}
+
+The method checks something and returns a boolean.
+
+
+============================================================
+13. SHORTER BOOLEAN METHOD
+============================================================
+
+This:
+
+public static boolean testResult(double mark)
+{
+    if(mark >= 40)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+Can be simplified to:
+
+public static boolean testResult(double mark)
+{
+    return mark >= 40;
+}
+
+Both versions are correct.
+
+
+============================================================
+14. QA EXAMPLE — BUG SEVERITY CHECKER
+============================================================
+
+Rules:
+- Critical -> Always escalate
+- Major + reproducible -> Escalate
+- Everything else -> Do not escalate
+
+Method:
+
+public static boolean shouldEscalate(String severity, boolean reproducible)
+{
+    if(severity.equals("Critical"))
+    {
+        return true;
+    }
+    else if(severity.equals("Major") && reproducible)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+Examples:
+
+Critical + false -> true
+Critical + true -> true
+Major + true -> true
+Major + false -> false
+Minor + true -> false
+Minor + false -> false
+
+
+============================================================
+15. COMPLETE BUG SEVERITY PROGRAM
+============================================================
+
+import java.util.Scanner;
+
+class basics6
+{
+    public static boolean shouldEscalate(String severity, boolean reproducible)
+    {
+        if(severity.equals("Critical"))
+        {
+            return true;
+        }
+        else if(severity.equals("Major") && reproducible)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        String severity;
+        boolean reproducible;
+
+        System.out.print("Enter bug severity: ");
+        severity = scan.nextLine();
+
+        System.out.print("Is the bug reproducible? (true/false): ");
+        reproducible = scan.nextBoolean();
+
+        boolean result = shouldEscalate(severity, reproducible);
+
+        if(result)
+        {
+            System.out.println("Bug should be escalated");
+        }
+        else
+        {
+            System.out.println("Bug does not need escalation");
+        }
+
+        scan.close();
+    }
+}
+
+
+============================================================
+16. GAME BUILD VALIDATION — QA PRACTICE
+============================================================
+
+Release rules:
+1. Platform must be PC, Xbox, or PS5.
+2. Critical bugs must be 0.
+3. Major bugs must be 2 or fewer.
+4. Regression testing must be completed.
+
+Method:
+
+public static boolean isBuildReady(
+    String platform,
+    int criticalBugs,
+    int majorBugs,
+    boolean regressionCompleted)
+
+A correct nested solution:
+
+public static boolean isBuildReady(String platform, int criticalBugs, int majorBugs, boolean regressionCompleted)
+{
+    if(platform.equals("PC") || platform.equals("Xbox") || platform.equals("PS5"))
+    {
+        if(criticalBugs == 0 && majorBugs <= 2 && regressionCompleted)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
+The user's submitted solution for this exercise was logically correct.
+
+The logic can also be combined into one condition:
+
+public static boolean isBuildReady(String platform, int criticalBugs, int majorBugs, boolean regressionCompleted)
+{
+    if((platform.equals("PC") || platform.equals("Xbox") || platform.equals("PS5"))
+        && criticalBugs == 0
+        && majorBugs <= 2
+        && regressionCompleted)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+It can eventually be shortened to:
+
+public static boolean isBuildReady(String platform, int criticalBugs, int majorBugs, boolean regressionCompleted)
+{
+    return (platform.equals("PC") || platform.equals("Xbox") || platform.equals("PS5"))
+        && criticalBugs == 0
+        && majorBugs <= 2
+        && regressionCompleted;
+}
+
+The nested version is easier to understand while learning.
+
+
+============================================================
+17. IMPORTANT BOOLEAN LOGIC PATTERN
+============================================================
+
+For several required conditions, use AND:
+
+condition1 && condition2 && condition3
+
+When any one of several alternatives is acceptable, use OR:
+
+condition1 || condition2 || condition3
+
+Example:
+
+Valid platform:
+
+platform.equals("PC")
+||
+platform.equals("Xbox")
+||
+platform.equals("PS5")
+
+All release conditions:
+
+validPlatform
+&& criticalBugs == 0
+&& majorBugs <= 2
+&& regressionCompleted
+
+
+============================================================
+18. LOGIN METHOD PRACTICE
+============================================================
+
+Methods:
+
+public static void login()
+{
+    System.out.println("Username entered");
+    System.out.println("Password entered");
+    System.out.println("Login successful");
+}
+
+public static void wrong()
+{
+    System.out.println("Wrong username or password");
+}
+
+Then:
+
+if(username.equals("Edward") && password.equals("Hari"))
+{
+    login();
+}
+else
+{
+    wrong();
+}
+
+The else block runs when the if condition is false.
+
+Calling wrong(); executes the custom wrong() method.
+
+
+============================================================
+19. LOGIN LOOP WITH TWO VALID CREDENTIALS
+============================================================
+
+Valid combinations:
+
+Edward + Hari
+
+OR
+
+Hariharan + 1234
+
+Success condition:
+
+(username.equals("Edward") && password.equals("Hari"))
+||
+(username.equals("Hariharan") && password.equals("1234"))
+
+The loop must continue while login is NOT successful.
+
+Therefore:
+
+while(!(
+    (username.equals("Edward") && password.equals("Hari"))
+    ||
+    (username.equals("Hariharan") && password.equals("1234"))
+))
+
+Important pattern:
+
+SUCCESS = A OR B
+LOOP = NOT(SUCCESS)
+
+Therefore:
+
+while(!(A || B))
+
+
+============================================================
+20. COMPLETE LOGIN LOOP EXAMPLE
+============================================================
+
+import java.util.Scanner;
+
+class basics
+{
+    public static void login()
+    {
+        System.out.println("Username entered");
+        System.out.println("Password entered");
+        System.out.println("Login successful");
+    }
+
+    public static void wrong()
+    {
+        System.out.println("Wrong username or password");
+    }
+
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        String username = "";
+        String password = "";
+
+        while(!(
+            (username.equals("Edward") && password.equals("Hari"))
+            ||
+            (username.equals("Hariharan") && password.equals("1234"))
+        ))
+        {
+            System.out.print("Enter username: ");
+            username = scan.nextLine();
+
+            System.out.print("Enter the Password: ");
+            password = scan.nextLine();
+
+            if(username.equals("Edward") && password.equals("Hari"))
+            {
+                login();
+            }
+            else if(username.equals("Hariharan") && password.equals("1234"))
+            {
+                login();
+            }
+            else
+            {
+                wrong();
+            }
+        }
+
+        scan.close();
+    }
+}
+
+
+============================================================
+21. SCANNER AND scan.close()
+============================================================
+
+When Scanner is no longer needed:
+
+scan.close();
+
+Closing Scanner is good practice at the end of a small standalone program.
+
+Do not close Scanner early if you still need more input.
+
+A Scanner connected to System.in closing also closes System.in.
+
+
+============================================================
+22. COMMON DAY 3 MISTAKES
+============================================================
+
+1. Creating a method but forgetting to call it.
+
+Wrong:
+public static void login()
+{
+    System.out.println("Login");
+}
+
+Correct:
+login();
+
+
+2. Using void when a value needs to be returned.
+
+Wrong:
+public static void calculateTotal(int a, int b)
+{
+    return a + b;
+}
+
+Correct:
+public static int calculateTotal(int a, int b)
+{
+    return a + b;
+}
+
+
+3. Forgetting return in a non-void method.
+
+A method declared as int or boolean must return the required type.
+
+
+4. Using == for String comparison.
+
+Wrong:
+if(platform == "PS5")
+
+Correct:
+if(platform.equals("PS5"))
+
+
+5. Passing parameters in the wrong order.
+
+Method:
+testGame(String game, String platform, double version);
+
+Correct:
+testGame("Assassin's Creed", "PS5", 1.05);
+
+
+6. Confusing parameter and argument.
+
+Parameter:
+String browser
+
+Argument:
+"Chrome"
+
+
+============================================================
+23. METHOD CHEAT SHEET
+============================================================
+
+VOID METHOD:
+
+public static void login()
+{
+    // action
+}
+
+Call:
+
+login();
+
+
+ONE PARAMETER:
+
+public static void login(String username)
+{
+    System.out.println(username);
+}
+
+Call:
+
+login("Edward");
+
+
+MULTIPLE PARAMETERS:
+
+public static void testGame(String game, String platform)
+{
+    // code
+}
+
+Call:
+
+testGame("Game", "PS5");
+
+
+RETURN INT:
+
+public static int add(int a, int b)
+{
+    return a + b;
+}
+
+Call:
+
+int result = add(10, 20);
+
+
+RETURN BOOLEAN:
+
+public static boolean isPassed(int mark)
+{
+    return mark >= 40;
+}
+
+Call:
+
+boolean result = isPassed(50);
+
+
+============================================================
+24. DAY 3 KEY INTERVIEW QUESTIONS
+============================================================
+
+Q1. What is a method?
+A method is a reusable block of code designed to perform a specific task.
+
+Q2. What is a parameter?
+A parameter is a variable declared in a method that receives a value.
+
+Q3. What is an argument?
+An argument is the actual value passed to a method when calling it.
+
+Q4. What is void?
+void means the method does not return a value.
+
+Q5. What is return?
+return sends a value back from a method to the code that called it.
+
+Q6. Can a method have multiple parameters?
+Yes.
+
+Q7. Can parameters have different data types?
+Yes.
+
+Q8. What can a boolean method return?
+Only true or false.
+
+
+============================================================
+25. DAY 3 REVISION CHECKLIST
+============================================================
+
+[✓] What a method is
+[✓] Why methods are useful
+[✓] Creating a method
+[✓] Calling a method
+[✓] void methods
+[✓] Method parameters
+[✓] Arguments
+[✓] Multiple parameters
+[✓] Different parameter data types
+[✓] Returning int
+[✓] Returning boolean
+[✓] return keyword
+[✓] Methods + Scanner
+[✓] Methods + if/else
+[✓] Methods + boolean logic
+[✓] Methods + QA/Gaming examples
+[✓] Methods + bug severity logic
+[✓] Methods + build validation
+[✓] Methods + login loops
+
+
+============================================================
+26. DAY 3 STATUS
+============================================================
+
+JAVA METHODS: COMPLETED
+
+Completed:
+- Simple methods
+- void methods
+- Parameters
+- Multiple parameters
+- int return values
+- boolean return values
+- return keyword
+- QA/Gaming method practice
+- Boolean logic with methods
+
+ARRAYS:
+Moved to tomorrow.
+
+NEXT TOPIC:
+JAVA ARRAYS
+
+Tomorrow we will start Arrays from the basics and then move into practical QA/Gaming examples.
