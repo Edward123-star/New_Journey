@@ -21,6 +21,15 @@ class basics4{
             fail++;
         }
         }
+         System.out.println("\nFailed Test Cases:");
+
+        for(int i = 0; i < testresult.length; i++)
+        {
+            if(!testresult[i])
+            {
+                System.out.println("Test Case " + (i + 1));
+            }
+        }
        
         System.out.println("Total test cases excuted " + testresult.length);
         System.out.println(" Total testcases passed " + pass);

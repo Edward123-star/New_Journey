@@ -1,0 +1,223 @@
+JAVA DAY 4 — ARRAYS
+=====================
+
+Goal:
+Learn Java arrays from the basics and use them with loops for QA/testing-style problems.
+
+1. WHAT IS AN ARRAY?
+--------------------
+An array stores multiple values of the same data type in a single variable.
+
+Example:
+String[] platforms = {"PC", "Xbox", "PS5"};
+
+Array indexes start from 0:
+platforms[0] = "PC"
+platforms[1] = "Xbox"
+platforms[2] = "PS5"
+
+Important:
+The first element is index 0, not 1.
+
+
+2. CREATING AN ARRAY
+--------------------
+Example:
+int[] scores = new int[5];
+
+This creates space for 5 integers.
+
+Indexes:
+0, 1, 2, 3, 4
+
+When an int array is created using new, its elements initially contain 0.
+
+
+3. INITIALIZING AN ARRAY DIRECTLY
+---------------------------------
+Example:
+int[] scores = {80, 75, 90, 65, 88};
+
+You can access values using the index.
+
+
+4. MODIFYING ARRAY ELEMENTS
+---------------------------
+Example:
+scores[2] = 95;
+
+This changes the third element.
+
+
+5. ARRAY LENGTH
+---------------
+Use:
+array.length
+
+For an array of length 5, valid indexes are 0 to 4.
+
+The last index is:
+array.length - 1
+
+
+6. ARRAYS WITH FOR LOOP
+-----------------------
+Example:
+for(int i = 0; i < scores.length; i++)
+{
+    System.out.println(scores[i]);
+}
+
+Use <, not <=.
+
+Using <= can cause ArrayIndexOutOfBoundsException.
+
+
+7. USER INPUT INTO AN ARRAY
+---------------------------
+Example:
+int size = scan.nextInt();
+int[] marks = new int[size];
+
+for(int i = 0; i < marks.length; i++)
+{
+    System.out.print("Enter the mark of subject " + (i + 1) + ": ");
+    marks[i] = scan.nextInt();
+}
+
+Important:
+size = total number of elements
+i = current zero-based index
+i + 1 = human-friendly number
+marks[i] = actual value stored at that index
+
+
+8. CALCULATING A TOTAL
+----------------------
+Example:
+int total = 0;
+
+for(int i = 0; i < marks.length; i++)
+{
+    total = total + marks[i];
+}
+
+The total accumulates each value.
+
+
+9. BOOLEAN ARRAY FOR QA TEST RESULTS
+-------------------------------------
+Example:
+boolean[] testResult = new boolean[testcases];
+
+int pass = 0;
+int fail = 0;
+
+for(int i = 0; i < testResult.length; i++)
+{
+    testResult[i] = scan.nextBoolean();
+
+    if(testResult[i])
+    {
+        pass++;
+    }
+    else
+    {
+        fail++;
+    }
+}
+
+true can represent PASS and false can represent FAIL.
+
+
+10. FINDING FAILED TEST CASES
+-----------------------------
+Example:
+for(int i = 0; i < testResult.length; i++)
+{
+    if(!testResult[i])
+    {
+        System.out.println("Test Case " + (i + 1));
+    }
+}
+
+! reverses a boolean:
+!true = false
+!false = true
+
+
+11. FINDING THE HIGHEST VALUE
+-----------------------------
+Example:
+int highest = scores[0];
+
+for(int i = 0; i < scores.length; i++)
+{
+    if(scores[i] > highest)
+    {
+        highest = scores[i];
+    }
+}
+
+
+12. FINDING THE LOWEST VALUE
+----------------------------
+When input values are unknown, initialize lowest from the first actual input.
+
+Example:
+scores[0] = scan.nextInt();
+int lowest = scores[0];
+
+for(int i = 1; i < scores.length; i++)
+{
+    scores[i] = scan.nextInt();
+
+    if(scores[i] < lowest)
+    {
+        lowest = scores[i];
+    }
+}
+
+This avoids incorrectly using the array's default 0 as the starting minimum.
+
+
+13. IMPORTANT CONCEPTS LEARNED
+------------------------------
+- Arrays store multiple values of the same type.
+- Arrays use zero-based indexing.
+- First index = 0.
+- Last index = length - 1.
+- array.length gives the number of elements.
+- for loops are commonly used with arrays.
+- i is the array index.
+- i + 1 is useful for human-readable numbering.
+- array[i] gives the value at the current index.
+- A new int array initially contains 0.
+- <= can cause an array index error.
+- Boolean arrays can represent QA PASS/FAIL results.
+- Arrays can be used for totals, searching, counting, and comparisons.
+
+
+DAY 4 PRACTICE COMPLETED
+------------------------
+PASSED:
+- Create and initialize arrays
+- Access elements
+- Modify elements
+- Use .length
+- Arrays with for loops
+- User input into arrays
+- Calculate totals
+- Boolean QA test results
+- Count PASS and FAIL
+- Find failed test cases
+- Find highest score
+- Find lowest score
+
+
+DAY 4 STATUS
+------------
+ARRAYS — COMPLETED
+
+Next:
+DAY 5
