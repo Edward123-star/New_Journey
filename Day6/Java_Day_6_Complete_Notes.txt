@@ -1,0 +1,587 @@
+JAVA DAY 6 — OOP (OBJECT-ORIENTED PROGRAMMING)
+===============================================
+
+DAY 6 GOAL
+----------
+Learn the core OOP concepts required for Java automation testing.
+
+COMPLETED TODAY
+---------------
+1. Class
+2. Object
+3. Multiple objects
+4. Instance variables
+5. Methods inside a class
+6. Object data controlling method behavior
+7. Constructor
+8. Constructor parameters
+9. User input + constructor
+10. Creating objects from user input
+
+TOMORROW
+--------
+1. Exercise 7 — Multiple user-entered test cases
+2. this keyword
+3. static vs non-static
+4. Encapsulation
+5. Inheritance
+6. Polymorphism
+7. Abstraction
+8. Final Day 6 OOP QA automation exercise
+
+
+1. CLASS
+========
+A class is a blueprint/design for creating objects.
+
+Example:
+class Car
+{
+    String brand;
+    int speed;
+}
+
+Car = class
+brand and speed = instance variables
+
+QA example:
+class Test
+{
+    String testName;
+    String status;
+    String platform;
+}
+
+
+2. OBJECT
+=========
+An object is a real instance created from a class.
+
+Example:
+Car car1 = new Car();
+
+car1.brand = "Honda";
+car1.speed = 100;
+
+Car = class/type
+car1 = object/reference name
+new Car() = creates the object
+
+One class can create multiple objects.
+
+
+3. MULTIPLE OBJECTS
+===================
+The same class can create multiple independent objects.
+
+Example:
+class Test
+{
+    String testName;
+    String status;
+    String platform;
+}
+
+class basics
+{
+    public static void main(String[] args)
+    {
+        Test test1 = new Test();
+        Test test2 = new Test();
+
+        test1.testName = "Testcase1";
+        test1.status = "Pass";
+        test1.platform = "PC";
+
+        test2.testName = "Testcase2";
+        test2.status = "Fail";
+        test2.platform = "PS5";
+
+        System.out.println(test1.testName);
+        System.out.println(test1.status);
+        System.out.println(test1.platform);
+
+        System.out.println(test2.testName);
+        System.out.println(test2.status);
+        System.out.println(test2.platform);
+    }
+}
+
+test1 and test2 are separate objects.
+Changing test1's data does not change test2's data.
+
+
+4. INSTANCE VARIABLES
+=====================
+Variables declared inside a class and outside methods are instance variables.
+
+Example:
+class Test
+{
+    String testName;
+    String status;
+    String platform;
+}
+
+Each object gets its own copy of these variables.
+
+Example:
+Test test1 = new Test();
+Test test2 = new Test();
+
+test1.status = "Pass";
+test2.status = "Fail";
+
+The two status values are independent.
+
+
+5. METHODS INSIDE A CLASS
+=========================
+A class can contain:
+- Data -> variables
+- Behavior -> methods
+
+Example:
+class Test
+{
+    String testName;
+    String status;
+    String platform;
+
+    void showTestDetails()
+    {
+        System.out.println(testName);
+        System.out.println(platform);
+        System.out.println(status);
+    }
+}
+
+Calling:
+test1.showTestDetails();
+
+means:
+"Object test1, perform your showTestDetails() action."
+
+The same method can use test2's data when called as:
+test2.showTestDetails();
+
+
+6. OBJECT DATA CONTROLLING METHOD BEHAVIOR
+==========================================
+A method can use object data to decide what to do.
+
+Example:
+class Test
+{
+    boolean status;
+
+    void executeTest()
+    {
+        if(status)
+        {
+            System.out.println("Test passed successfully");
+        }
+        else
+        {
+            System.out.println("Test failed - Bug needs investigation");
+        }
+    }
+}
+
+User input:
+Scanner scan = new Scanner(System.in);
+
+Test test1 = new Test();
+
+System.out.println("If the test result is pass type true, if failed type false");
+System.out.print("Enter the test status: ");
+
+test1.status = scan.nextBoolean();
+
+test1.executeTest();
+
+If status is true:
+Test passed successfully
+
+If status is false:
+Test failed - Bug needs investigation
+
+
+7. CONSTRUCTOR
+==============
+A constructor initializes an object when it is created.
+
+Example:
+class Test
+{
+    boolean status;
+
+    Test(boolean testStatus)
+    {
+        status = testStatus;
+    }
+}
+
+A constructor:
+- Has the same name as the class.
+- Has no return type.
+- Runs when an object is created.
+- Can receive parameters.
+- Can initialize instance variables.
+
+Correct:
+Test(boolean testStatus)
+{
+    status = testStatus;
+}
+
+Not a constructor:
+void Test(boolean testStatus)
+{
+    ...
+}
+
+A constructor must not have a return type, including void.
+
+
+8. CONSTRUCTOR PARAMETERS AND ARGUMENTS
+=======================================
+Example:
+class Test
+{
+    boolean status;
+
+    Test(boolean testStatus)
+    {
+        status = testStatus;
+    }
+}
+
+Creating:
+Test test1 = new Test(true);
+
+Value flow:
+true
+ -> new Test(true)
+ -> testStatus = true
+ -> status = testStatus
+ -> status = true
+
+Similarly:
+Test test2 = new Test(false);
+
+false -> testStatus -> status
+
+Important:
+boolean status = instance variable belonging to the object.
+boolean testStatus = constructor parameter.
+status = testStatus = store the parameter value in the object's variable.
+
+
+9. WHY USE A CONSTRUCTOR?
+=========================
+Without a constructor:
+Test test1 = new Test();
+test1.status = true;
+
+This is two steps:
+1. Create object.
+2. Give it data.
+
+With a constructor:
+Test test1 = new Test(true);
+
+This creates and initializes the object in one step.
+
+A constructor is useful when an object needs required information when it is created.
+
+Example:
+class Test
+{
+    String testName;
+    String platform;
+    boolean status;
+
+    Test(String name, String testPlatform, boolean testStatus)
+    {
+        testName = name;
+        platform = testPlatform;
+        status = testStatus;
+    }
+}
+
+Test test1 = new Test("Login Test", "PC", true);
+
+
+10. SCANNER + CONSTRUCTOR
+=========================
+Scanner and constructors have different jobs.
+
+Scanner:
+Gets input from the user.
+
+Constructor:
+Initializes an object with values.
+
+They can be used together.
+
+Example:
+Scanner scan = new Scanner(System.in);
+
+System.out.print("Enter test name: ");
+String name = scan.nextLine();
+
+System.out.print("Enter platform: ");
+String platform = scan.nextLine();
+
+System.out.print("Enter status: ");
+boolean status = scan.nextBoolean();
+
+Test test1 = new Test(name, platform, status);
+
+Flow:
+User Input
+    |
+    v
+Variables
+    |
+    v
+Constructor
+    |
+    v
+Test Object
+    |
+    v
+Method
+
+
+11. COMPLETE CONSTRUCTOR EXAMPLE
+================================
+class Test
+{
+    String testName;
+    String platform;
+    boolean status;
+
+    Test(String name, String testPlatform, boolean testStatus)
+    {
+        testName = name;
+        platform = testPlatform;
+        status = testStatus;
+    }
+
+    void showTestDetails()
+    {
+        System.out.println("Test Name: " + testName);
+        System.out.println("Platform: " + platform);
+        System.out.println("Status: " + status);
+    }
+}
+
+class basics2
+{
+    public static void main(String[] args)
+    {
+        Test test1 = new Test("Login Test", "PC", true);
+        Test test2 = new Test("Payment Test", "PS5", false);
+
+        test1.showTestDetails();
+
+        System.out.println();
+
+        test2.showTestDetails();
+    }
+}
+
+Expected:
+Test Name: Login Test
+Platform: PC
+Status: true
+
+Test Name: Payment Test
+Platform: PS5
+Status: false
+
+
+12. USER INPUT + CONSTRUCTOR — PASSED
+=====================================
+User's completed solution:
+
+import java.util.Scanner;
+
+class Test
+{
+    String name;
+    String platform;
+    boolean status;
+
+    Test(String testname, String testPlatform, boolean testStatus)
+    {
+        name = testname;
+        platform = testPlatform;
+        status = testStatus;
+    }
+
+    void showTestDetails()
+    {
+        System.out.println("Test Name: " + name);
+        System.out.println("Platform: " + platform);
+        System.out.println("Status: " + status);
+    }
+}
+
+class basics3
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Enter test name: ");
+        String testname = scan.nextLine();
+
+        System.out.print("Enter platform: ");
+        String testPlatform = scan.nextLine();
+
+        System.out.print("Enter status: ");
+        boolean testStatus = scan.nextBoolean();
+
+        Test test1 = new Test(testname, testPlatform, testStatus);
+
+        System.out.println();
+        System.out.println("Details of the " + testname);
+        test1.showTestDetails();
+    }
+}
+
+This was PASSED.
+
+
+13. JAVA NAMING CONVENTION
+==========================
+Java convention is to start class names with an uppercase letter.
+
+Prefer:
+class Test
+
+instead of:
+class test
+
+This is a naming convention, not a functional error.
+
+
+14. KEY CONCEPT SUMMARY
+=======================
+Class:
+Blueprint/design.
+
+Object:
+Real instance of a class.
+
+Instance variable:
+Data belonging to an object.
+
+Method:
+Behavior/action an object can perform.
+
+Constructor:
+Initializes an object when it is created.
+
+Parameter:
+Variable that receives a value in a method or constructor.
+
+Argument:
+Actual value passed to a method or constructor.
+
+Example:
+Test(String name, String platform, boolean status)
+     ^       ^          ^
+  parameters
+
+new Test("Login Test", "PC", true)
+          ^             ^      ^
+       arguments
+
+
+15. OOP FLOW
+============
+class
+  |
+  v
+object
+  |
+  +--> instance variables (data)
+  |
+  +--> methods (behavior)
+  |
+  +--> constructor (initialization)
+
+
+16. DAY 6 EXERCISES
+===================
+Exercise 1:
+Create a Test class and one object.
+PASSED.
+
+Exercise 2:
+Create multiple Test objects with different data.
+PASSED.
+
+Exercise 3:
+Create showTestDetails() inside the Test class.
+PASSED.
+
+Exercise 4:
+Create executeTest() using boolean status.
+PASSED.
+
+Exercise 5:
+Use a constructor to initialize Test object data.
+Completed and explained.
+
+Exercise 6:
+Get Test information from the user and pass it to the constructor.
+PASSED.
+
+
+17. TOMORROW'S PLAN
+===================
+Exercise 7:
+Create two Test objects using user input.
+
+For each test case:
+- Test name
+- Platform
+- Status
+
+Create:
+Test test1 = new Test(...);
+Test test2 = new Test(...);
+
+Then display both test results.
+
+After Exercise 7:
+1. this keyword
+2. static vs non-static
+3. Encapsulation
+4. Inheritance
+5. Polymorphism
+6. Abstraction
+7. Final Day 6 OOP QA automation exercise
+
+
+DAY 6 STATUS
+============
+Completed:
+[PASS] Class
+[PASS] Object
+[PASS] Multiple objects
+[PASS] Instance variables
+[PASS] Methods inside classes
+[PASS] Object behavior
+[PASS] Constructor
+[PASS] Constructor parameters
+[PASS] Scanner + constructor
+[PASS] User input + object creation
+
+Day 6 is not fully finished yet.
+Tomorrow begins with Exercise 7.
