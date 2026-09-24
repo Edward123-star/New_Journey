@@ -1,0 +1,1212 @@
+============================================================
+JAVA DAY 5 — STRINGS
+Complete Notes, Examples, Split, String Arrays & Summary
+============================================================
+
+
+DAY 5 GOAL
+============================================================
+
+Learn important Java String concepts needed for:
+
+- Java programming
+- Input validation
+- String manipulation
+- Debugging
+- QA testing
+- Future Selenium automation
+
+
+============================================================
+1. WHAT IS A STRING?
+============================================================
+
+A String is a sequence of characters.
+
+Example:
+
+String game = "Black Flag";
+
+Here:
+
+String = data type
+game = variable
+"Black Flag" = String value
+
+A String can contain:
+
+- Letters
+- Numbers
+- Spaces
+- Special characters
+
+Examples:
+
+String username = "Edward";
+String platform = "PS5";
+String message = "Test Passed";
+
+
+============================================================
+2. length()
+============================================================
+
+length() returns the number of characters in a String.
+
+Example:
+
+String game = "Black Flag";
+
+System.out.println(game.length());
+
+Output:
+
+10
+
+Important:
+
+Spaces are also counted as characters.
+
+"Black Flag"
+
+5 letters + 1 space + 4 letters = 10 characters
+
+
+QA Example:
+
+String testCase = "Login Test";
+
+System.out.println(testCase.length());
+
+
+============================================================
+3. equals()
+============================================================
+
+equals() compares two String values.
+
+Example:
+
+String username = "Edward";
+
+if(username.equals("Edward"))
+{
+    System.out.println("Correct username");
+}
+
+equals() is case-sensitive.
+
+Examples:
+
+"Edward".equals("Edward")  -> true
+
+"Edward".equals("edward")  -> false
+
+Important:
+
+Use equals() instead of == when comparing String values.
+
+Correct:
+
+username.equals("Edward")
+
+Avoid:
+
+username == "Edward"
+
+
+============================================================
+4. equalsIgnoreCase()
+============================================================
+
+equalsIgnoreCase() compares Strings without considering
+uppercase/lowercase differences.
+
+Example:
+
+String username = "EDWARD";
+
+if(username.equalsIgnoreCase("Edward"))
+{
+    System.out.println("Username matched");
+}
+
+These values will all match:
+
+Edward
+EDWARD
+edward
+eDwArD
+
+
+QA Login Example:
+
+if(username.equalsIgnoreCase("Edward") &&
+   password.equals("Hari@123"))
+{
+    System.out.println("Login Successful");
+}
+
+Here:
+
+equalsIgnoreCase() -> username comparison
+equals()           -> password comparison
+
+
+============================================================
+5. toUpperCase()
+============================================================
+
+Converts a String to uppercase.
+
+Example:
+
+String game = "Black Flag";
+
+System.out.println(game.toUpperCase());
+
+Output:
+
+BLACK FLAG
+
+Important:
+
+String methods return a new String value.
+
+The original variable does not change automatically.
+
+Example:
+
+String game = "Black Flag";
+
+System.out.println(game.toUpperCase());
+System.out.println(game);
+
+Output:
+
+BLACK FLAG
+Black Flag
+
+
+============================================================
+6. toLowerCase()
+============================================================
+
+Converts a String to lowercase.
+
+Example:
+
+String game = "BLACK FLAG";
+
+System.out.println(game.toLowerCase());
+
+Output:
+
+black flag
+
+
+QA Example:
+
+String message = "ERROR: Login Failed";
+
+if(message.toLowerCase().contains("error"))
+{
+    System.out.println("Error detected");
+}
+
+This allows us to detect:
+
+ERROR
+Error
+error
+eRrOr
+
+
+============================================================
+7. contains()
+============================================================
+
+contains() checks whether a String contains a particular
+sequence of characters.
+
+It returns:
+
+true
+
+or
+
+false
+
+
+Example:
+
+String message = "Login error occurred";
+
+if(message.contains("error"))
+{
+    System.out.println("Error message detected");
+}
+
+Important:
+
+contains() is case-sensitive.
+
+Example:
+
+"ERROR".contains("error")
+
+Result:
+
+false
+
+
+For case-insensitive checking:
+
+message.toLowerCase().contains("error")
+
+
+QA Example:
+
+String message = "Test Passed Successfully";
+
+if(message.toLowerCase().contains("test passed"))
+{
+    System.out.println("Test case passed");
+}
+
+
+============================================================
+8. charAt()
+============================================================
+
+charAt() returns one character at a specific index.
+
+Java uses zero-based indexing.
+
+Example:
+
+String game = "Black Flag";
+
+
+B l a c k   F l a g
+0 1 2 3 4 5 6 7 8 9
+
+
+Examples:
+
+game.charAt(0) -> B
+
+game.charAt(2) -> a
+
+game.charAt(6) -> F
+
+
+Important:
+
+The first character is index 0.
+
+Not index 1.
+
+
+============================================================
+9. substring()
+============================================================
+
+substring() extracts part of a String.
+
+There are two common forms.
+
+
+A) substring(start)
+
+Starts from the given index and continues to the end.
+
+Example:
+
+String browser = "Google Chrome";
+
+System.out.println(browser.substring(7));
+
+Output:
+
+Chrome
+
+
+B) substring(start, end)
+
+Starts at start index and stops BEFORE the end index.
+
+Example:
+
+String game = "Black Flag";
+
+System.out.println(game.substring(0, 5));
+
+Output:
+
+Black
+
+
+Important Rule:
+
+START = included
+
+END = excluded
+
+
+Example:
+
+"Black Flag"
+
+Index:
+
+B l a c k   F l a g
+0 1 2 3 4 5 6 7 8 9
+
+substring(0,5)
+
+Includes:
+
+0,1,2,3,4
+
+Does NOT include:
+
+5
+
+
+============================================================
+10. trim()
+============================================================
+
+trim() removes leading and trailing spaces.
+
+Example:
+
+String username = "   Edward   ";
+
+String cleanName = username.trim();
+
+System.out.println(cleanName);
+
+Output:
+
+Edward
+
+
+Important:
+
+trim() removes spaces from the beginning and end.
+
+It does NOT remove spaces between words.
+
+Example:
+
+"   Black Flag   "
+
+becomes:
+
+"Black Flag"
+
+
+============================================================
+11. startsWith()
+============================================================
+
+startsWith() checks whether a String starts with a particular
+sequence.
+
+Example:
+
+String fileName = "test_login.java";
+
+if(fileName.startsWith("test"))
+{
+    System.out.println("Valid test file");
+}
+
+Output:
+
+Valid test file
+
+
+QA Example:
+
+if(fileName.startsWith("test_"))
+{
+    System.out.println("Valid test case file");
+}
+
+
+============================================================
+12. endsWith()
+============================================================
+
+endsWith() checks whether a String ends with a particular
+sequence.
+
+Example:
+
+String fileName = "login_test.java";
+
+if(fileName.endsWith(".java"))
+{
+    System.out.println("Java file");
+}
+
+Output:
+
+Java file
+
+
+QA Example:
+
+String screenshot = "login_failure.png";
+
+if(screenshot.endsWith(".png"))
+{
+    System.out.println("Valid screenshot format");
+}
+
+
+============================================================
+13. indexOf()
+============================================================
+
+indexOf() finds the position of a character or String.
+
+Example:
+
+String game = "Black Flag";
+
+
+game.indexOf("Flag") -> 6
+
+game.indexOf("a") -> 2
+
+game.indexOf("Xbox") -> -1
+
+
+Important:
+
+If the value is not found, indexOf() returns -1.
+
+
+QA Example:
+
+String message = "Login failed due to timeout";
+
+if(message.indexOf("timeout") != -1)
+{
+    System.out.println("Timeout error detected");
+}
+
+
+============================================================
+14. replace()
+============================================================
+
+replace() replaces one sequence of characters with another.
+
+Example:
+
+String message = "Login failed";
+
+message = message.replace("failed", "successful");
+
+System.out.println(message);
+
+Output:
+
+Login successful
+
+
+Another example:
+
+String browser = "Google Chrome";
+
+browser = browser.replace("Chrome", "Firefox");
+
+Output:
+
+Google Firefox
+
+
+Important:
+
+Assign the result back to the variable if you want to keep
+the changed String.
+
+
+============================================================
+15. isEmpty()
+============================================================
+
+isEmpty() checks whether a String has zero characters.
+
+Example:
+
+String username = "";
+
+if(username.isEmpty())
+{
+    System.out.println("Username is empty");
+}
+
+
+Examples:
+
+"".isEmpty()         -> true
+
+"Edward".isEmpty()  -> false
+
+"   ".isEmpty()     -> false
+
+
+Important:
+
+A String containing only spaces is NOT empty.
+
+
+============================================================
+16. isBlank()
+============================================================
+
+isBlank() checks whether a String is empty or contains only
+whitespace.
+
+Examples:
+
+"".isBlank()          -> true
+
+"   ".isBlank()       -> true
+
+"Edward".isBlank()    -> false
+
+
+Difference:
+
+isEmpty()
+
+Checks only for zero characters.
+
+
+isBlank()
+
+Checks for:
+
+- Empty String
+- Whitespace-only String
+
+
+This is very useful for form validation.
+
+
+============================================================
+17. CASE-INSENSITIVE SEARCHING
+============================================================
+
+contains() is case-sensitive.
+
+Example:
+
+String message = "ERROR occurred";
+
+message.contains("error")
+
+Result:
+
+false
+
+
+To perform a case-insensitive search:
+
+message.toLowerCase().contains("error")
+
+Result:
+
+true
+
+
+Example:
+
+String message = "TEST PASSED";
+
+if(message.toLowerCase().contains("test passed"))
+{
+    System.out.println("Test case passed");
+}
+
+
+============================================================
+18. COMBINING STRING METHODS
+============================================================
+
+String methods can be chained together.
+
+Example:
+
+String message = "   TEST PASSED successfully   ";
+
+if(message.trim().toLowerCase().contains("test passed"))
+{
+    System.out.println("Test case passed");
+}
+else
+{
+    System.out.println("Test case failed");
+}
+
+
+The operations happen from left to right:
+
+message
+   |
+trim()
+   |
+toLowerCase()
+   |
+contains("test passed")
+   |
+true / false
+
+
+Example Input:
+
+   TEST PASSED successfully
+
+
+Output:
+
+Test case passed
+
+
+This is a very useful pattern for QA validation.
+
+
+============================================================
+19. split()
+============================================================
+
+split() divides a String into multiple parts.
+
+It is especially useful when multiple values are stored
+inside one String.
+
+Example:
+
+String data = "PC,Xbox,PS5";
+
+String[] platforms = data.split(",");
+
+
+The comma is the separator.
+
+The result becomes:
+
+platforms[0] = "PC"
+
+platforms[1] = "Xbox"
+
+platforms[2] = "PS5"
+
+
+We can print them using a loop:
+
+for(int i = 0; i < platforms.length; i++)
+{
+    System.out.println(platforms[i]);
+}
+
+
+Output:
+
+PC
+Xbox
+PS5
+
+
+============================================================
+20. STRING + ARRAY
+============================================================
+
+split() is commonly used to create a String array.
+
+Example:
+
+String data = "PC,Xbox,PS5";
+
+String[] platforms = data.split(",");
+
+
+Here:
+
+String[] platforms
+
+means:
+
+platforms is an array that stores String values.
+
+
+The array contains:
+
+Index 0 -> PC
+
+Index 1 -> Xbox
+
+Index 2 -> PS5
+
+
+Number of values:
+
+platforms.length -> 3
+
+
+============================================================
+21. STRING ARRAY — QA EXAMPLE
+============================================================
+
+Suppose a game supports three platforms:
+
+PC
+Xbox
+PS5
+
+
+Code:
+
+String supportedPlatforms = "PC,Xbox,PS5";
+
+String[] platforms = supportedPlatforms.split(",");
+
+for(int i = 0; i < platforms.length; i++)
+{
+    System.out.println("Platform " + (i + 1) + ": "
+                       + platforms[i]);
+}
+
+
+Output:
+
+Platform 1: PC
+Platform 2: Xbox
+Platform 3: PS5
+
+
+This combines:
+
+String
+split()
+String Array
+Array Index
+Array length
+for loop
+
+
+============================================================
+22. STRING ARRAY WITH USER INPUT
+============================================================
+
+Example:
+
+Scanner scan = new Scanner(System.in);
+
+System.out.print("Enter platforms separated by comma: ");
+
+String input = scan.nextLine();
+
+String[] platforms = input.split(",");
+
+for(int i = 0; i < platforms.length; i++)
+{
+    System.out.println("Platform " + (i + 1) + ": "
+                       + platforms[i].trim());
+}
+
+
+If the user enters:
+
+PC, Xbox, PS5
+
+
+Output:
+
+Platform 1: PC
+
+Platform 2: Xbox
+
+Platform 3: PS5
+
+
+Why use trim()?
+
+Because the input contains spaces after the commas.
+
+For example:
+
+PC, Xbox, PS5
+   ^
+   Extra space
+
+
+trim() removes those extra spaces.
+
+
+============================================================
+23. QA TEST RESULT VALIDATION
+============================================================
+
+Example:
+
+String message = "   TEST PASSED successfully   ";
+
+message = message.trim();
+
+if(message.toLowerCase().contains("test passed"))
+{
+    System.out.println("Test case passed");
+}
+else
+{
+    System.out.println("Test case failed");
+}
+
+
+This is a realistic example of processing a test result message.
+
+
+============================================================
+24. LOGIN VALIDATION — QA EXAMPLE
+============================================================
+
+String username = "Edward";
+
+String password = "Hari@123";
+
+if(username.equalsIgnoreCase("Edward") &&
+   password.equals("Hari@123"))
+{
+    System.out.println("Login Successful");
+}
+else
+{
+    System.out.println("Incorrect Username/Password");
+}
+
+
+Why?
+
+equalsIgnoreCase()
+Used for username comparison here.
+
+equals()
+Used for password comparison because it is case-sensitive.
+
+&&
+Means BOTH conditions must be true.
+
+
+============================================================
+25. COMMON STRING MISTAKES
+============================================================
+
+Mistake 1:
+Using == for String value comparison.
+
+
+Wrong:
+
+if(username == "Edward")
+
+
+Correct:
+
+if(username.equals("Edward"))
+
+
+------------------------------------------------------------
+
+Mistake 2:
+Wrong comparison after toLowerCase().
+
+
+Wrong:
+
+if(username.toLowerCase().equals("Edward"))
+
+
+Why?
+
+The username was converted to lowercase.
+
+So "Edward" is the wrong comparison value.
+
+
+Correct:
+
+if(username.toLowerCase().equals("edward"))
+
+
+Or:
+
+if(username.equalsIgnoreCase("Edward"))
+
+
+------------------------------------------------------------
+
+Mistake 3:
+Using || when both login values must match.
+
+
+Wrong:
+
+if(username.equals("Edward") || password.equals("Hari@123"))
+
+
+Correct:
+
+if(username.equals("Edward") &&
+   password.equals("Hari@123"))
+
+
+------------------------------------------------------------
+
+Mistake 4:
+Forgetting zero-based indexing.
+
+
+The first character is index 0.
+
+
+------------------------------------------------------------
+
+Mistake 5:
+Forgetting substring end index is excluded.
+
+
+Example:
+
+"Black Flag".substring(0, 5)
+
+
+Result:
+
+Black
+
+
+Index 5 is NOT included.
+
+
+============================================================
+DAY 5 PRACTICE / PROGRESS
+============================================================
+
+1. String basics
+   STATUS: PASSED
+
+2. length()
+   STATUS: PASSED
+
+3. equals()
+   STATUS: Already known
+
+4. toUpperCase()
+   STATUS: PASSED
+
+5. toLowerCase()
+   STATUS: PASSED
+
+6. contains()
+   STATUS: PASSED
+
+7. charAt()
+   STATUS: UNDERSTOOD
+
+8. substring()
+   STATUS: UNDERSTOOD
+
+9. trim()
+   STATUS: UNDERSTOOD
+
+10. startsWith()
+    STATUS: UNDERSTOOD
+
+11. endsWith()
+    STATUS: UNDERSTOOD
+
+12. Case-insensitive contains()
+    STATUS: PASSED
+
+13. equalsIgnoreCase()
+    STATUS: PASSED
+
+14. indexOf()
+    STATUS: UNDERSTOOD
+
+15. replace()
+    STATUS: UNDERSTOOD
+
+16. isEmpty()
+    STATUS: UNDERSTOOD
+
+17. isBlank()
+    STATUS: UNDERSTOOD
+
+18. Combined String methods
+    STATUS: PASSED
+
+19. split()
+    STATUS: COVERED
+
+20. String + Arrays
+    STATUS: COVERED
+
+
+============================================================
+DAY 5 COMPLETE SUMMARY
+============================================================
+
+By the end of Day 5, you can work with:
+
+length()
+equals()
+equalsIgnoreCase()
+toUpperCase()
+toLowerCase()
+contains()
+charAt()
+substring()
+trim()
+startsWith()
+endsWith()
+indexOf()
+replace()
+isEmpty()
+isBlank()
+split()
+
+
+You can also:
+
+- Compare Strings correctly.
+- Search inside Strings.
+- Extract parts of Strings.
+- Clean user input.
+- Handle uppercase/lowercase differences.
+- Validate empty input.
+- Validate blank input.
+- Replace text.
+- Find positions of text.
+- Split a String into multiple values.
+- Store split values in a String array.
+- Access String array values using indexes.
+- Use array length with String arrays.
+- Loop through String arrays.
+- Combine multiple String methods.
+- Build QA-style validation logic.
+
+
+============================================================
+DAY 5 STATUS
+============================================================
+
+DAY 5 — STRINGS
+
+STATUS: COMPLETED
+
+
+Main skills gained:
+
+String manipulation
+String comparison
+String validation
+String searching
+String extraction
+String cleaning
+String splitting
+String arrays
+QA-style String validation
+
+
+============================================================
+WHAT YOU LEARNED FROM DAY 4 → DAY 5
+============================================================
+
+DAY 4:
+Arrays
+
+You learned:
+
+- Creating arrays
+- Array indexes
+- Array length
+- Taking user input into arrays
+- for loops with arrays
+- Searching arrays
+- Counting PASS/FAIL
+- Finding highest value
+- Finding lowest value
+
+
+DAY 5:
+Strings
+
+You learned:
+
+- Working with text
+- String methods
+- String validation
+- String searching
+- String manipulation
+- String splitting
+- String arrays
+
+
+Important connection:
+
+String
+   |
+split()
+   |
+String[]
+   |
+for loop
+   |
+Process each value
+
+
+This connection will be useful later in automation testing.
+
+
+============================================================
+NEXT — DAY 6
+============================================================
+
+DAY 6 — OBJECT-ORIENTED PROGRAMMING (OOP)
+
+
+Planned topics:
+
+1. Class
+2. Object
+3. Instance variables
+4. Methods inside classes
+5. Constructor
+6. static vs non-static
+7. Encapsulation
+8. Inheritance
+9. Polymorphism
+10. Abstraction
+
+
+OOP is especially important for:
+
+- Selenium automation
+- Page Object Model
+- Test frameworks
+- Reusable automation code
+- Real-world Java projects
+
+
+============================================================
+END OF DAY 5
+============================================================
