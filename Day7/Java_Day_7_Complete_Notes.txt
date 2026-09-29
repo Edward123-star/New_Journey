@@ -1,0 +1,570 @@
+JAVA TRAINING — DAY 7 COMPLETE NOTES
+=====================================
+
+DAY 7 STATUS
+------------
+Day 7 is partially completed.
+
+COMPLETED:
+1. this keyword
+2. static vs non-static
+3. Encapsulation
+4. private variables
+5. Getters and setters
+6. User-input encapsulation exercise
+
+REMAINING FOR TOMORROW:
+1. Inheritance
+2. Polymorphism
+3. Abstraction
+4. Final OOP practice
+
+
+==================================================
+1. THIS KEYWORD
+==================================================
+
+The 'this' keyword refers to the current object.
+
+Example:
+
+class Test
+{
+    String name;
+    String platform;
+    boolean status;
+
+    Test(String name, String platform, boolean status)
+    {
+        this.name = name;
+        this.platform = platform;
+        this.status = status;
+    }
+}
+
+Here:
+- this.name -> instance variable belonging to the current object
+- name -> constructor parameter
+- this.platform -> object's platform
+- platform -> parameter
+- this.status -> object's status
+- status -> parameter
+
+Easy rule:
+this = "this current object"
+
+'this' is commonly used when an instance variable and a parameter have the same name.
+
+It can also be used without a same-name parameter:
+
+void showName()
+{
+    System.out.println(this.name);
+}
+
+
+==================================================
+2. STATIC VS NON-STATIC
+==================================================
+
+Non-static variables belong to individual objects.
+
+Example:
+
+class Test
+{
+    String testName;
+    String platform;
+}
+
+Test test1 = new Test();
+Test test2 = new Test();
+
+test1.testName = "Login Test";
+test2.testName = "Payment Test";
+
+Each object has its own testName.
+
+Static variables belong to the class and are shared.
+
+Example:
+
+class Test
+{
+    static String company = "Sun Technologies";
+
+    String testName;
+}
+
+The static variable can be accessed using the class name:
+
+System.out.println(Test.company);
+
+Remember:
+
+Non-static = each object has its own value.
+Static = shared by the class.
+
+
+STATIC METHODS
+--------------
+
+A static method belongs to the class.
+
+Example:
+
+class basics
+{
+    static void showMessage()
+    {
+        System.out.println("Hello");
+    }
+
+    public static void main(String[] args)
+    {
+        showMessage();
+    }
+}
+
+The main() method is static, which is why Java can start it without creating an object of the class.
+
+A non-static method belongs to an object.
+
+Example:
+
+class Test
+{
+    String name;
+
+    void showName()
+    {
+        System.out.println(name);
+    }
+}
+
+To call it:
+
+Test test1 = new Test();
+test1.name = "Login Test";
+test1.showName();
+
+
+==================================================
+3. STATIC VS NON-STATIC QA EXERCISE
+==================================================
+
+Exercise:
+Create a Testcase class with:
+
+static String projectName;
+String name;
+String platform;
+boolean result;
+
+The project name is shared by the class, while name, platform, and result belong to individual test objects.
+
+The completed user solution used Scanner input:
+
+Testcase.projectName = scan.nextLine();
+
+Testcase test1 = new Testcase(name, platform, result);
+
+Important:
+Testcase.projectName accesses the static class variable.
+
+If instead we write:
+
+String projectName = scan.nextLine();
+
+we create a local variable. That does NOT update Testcase.projectName.
+
+
+==================================================
+4. ENCAPSULATION
+==================================================
+
+Encapsulation means protecting an object's data and controlling how it is accessed or modified.
+
+Without encapsulation:
+
+class Test
+{
+    String name;
+}
+
+Anyone could directly modify it:
+
+test1.name = "Login Test";
+
+With encapsulation:
+
+class Test
+{
+    private String name;
+}
+
+The variable cannot be directly accessed from outside the class.
+
+We use getters and setters.
+
+
+PRIVATE
+-------
+
+private protects the variable from direct outside access.
+
+Example:
+
+private String name;
+
+
+SETTER
+------
+
+A setter changes the value.
+
+Example:
+
+public void setName(String name)
+{
+    this.name = name;
+}
+
+Think:
+set = change the value
+
+
+GETTER
+------
+
+A getter reads the value.
+
+Example:
+
+public String getName()
+{
+    return name;
+}
+
+Think:
+get = give me the value
+
+
+COMMON PATTERN
+--------------
+
+private String name;
+
+public void setName(String name)
+{
+    this.name = name;
+}
+
+public String getName()
+{
+    return name;
+}
+
+
+==================================================
+5. ENCAPSULATION EXERCISE — COMPLETED
+==================================================
+
+The exercise was to create private variables for:
+
+name
+platform
+result
+
+Then create getters and setters and take input from the user.
+
+Completed solution:
+
+import java.util.Scanner;
+
+class Testcase
+{
+    static String projectName;
+
+    private String name;
+    private String platform;
+    private boolean result;
+
+    public void setname(String name)
+    {
+        this.name = name;
+    }
+
+    public String getname()
+    {
+        return name;
+    }
+
+    public void setplatform(String platform)
+    {
+        this.platform = platform;
+    }
+
+    public String getplatform()
+    {
+        return platform;
+    }
+
+    public void setresult(boolean result)
+    {
+        this.result = result;
+    }
+
+    public boolean getresult()
+    {
+        return result;
+    }
+}
+
+class basic3
+{
+    public static void main(String[] args)
+    {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.print("Enter the project Name: ");
+        Testcase.projectName = scan.nextLine();
+
+        Testcase test1 = new Testcase();
+
+        System.out.print("Enter test name: ");
+        String name = scan.nextLine();
+
+        System.out.print("Enter platform: ");
+        String platform = scan.nextLine();
+
+        System.out.print("Enter Result(True/False): ");
+        boolean result = scan.nextBoolean();
+
+        test1.setname(name);
+        test1.setplatform(platform);
+        test1.setresult(result);
+
+        System.out.println("Project: " + Testcase.projectName);
+        System.out.println("Details of the " + name);
+        System.out.println(test1.getname());
+        System.out.println(test1.getplatform());
+        System.out.println(test1.getresult());
+    }
+}
+
+The solution was marked PASSED.
+
+
+==================================================
+6. JAVA NAMING CONVENTION
+==================================================
+
+The code works with:
+
+setname()
+getname()
+setplatform()
+getplatform()
+setresult()
+getresult()
+
+However, standard Java naming convention is:
+
+setName()
+getName()
+
+setPlatform()
+getPlatform()
+
+setResult()
+getResult()
+
+This is a naming/style improvement, not a functionality error.
+
+
+==================================================
+7. IMPORTANT ENCAPSULATION FLOW
+==================================================
+
+When getting user input:
+
+String name = scan.nextLine();
+
+Then send it through the setter:
+
+test1.setName(name);
+
+Inside the setter:
+
+public void setName(String name)
+{
+    this.name = name;
+}
+
+Flow:
+
+User input
+    |
+    v
+String name
+    |
+    v
+test1.setName(name)
+    |
+    v
+setName(String name)
+    |
+    v
+this.name = name
+    |
+    v
+private name is updated
+
+To read it:
+
+test1.getName()
+
+
+==================================================
+8. STATIC + ENCAPSULATION TOGETHER
+==================================================
+
+Static and encapsulation solve different problems.
+
+Static answers:
+"Does this value belong to the class or to each object?"
+
+Encapsulation answers:
+"How should this data be protected and accessed?"
+
+Example:
+
+static String projectName;
+
+private String name;
+
+projectName is shared by the class.
+
+name belongs to each object and is protected using private.
+
+
+==================================================
+9. JAVA COMPILE/RUN ISSUE ENCOUNTERED
+==================================================
+
+A terminal issue happened after compiling.
+
+Command used:
+
+javac basics3.java
+
+This successfully compiles the source file.
+
+After compilation, run the class name without .java:
+
+java basics3
+
+NOT:
+
+java basics3.java
+
+Also make sure the class name containing main() matches what you run.
+
+If the code contains:
+
+class basics3
+{
+    public static void main(String[] args)
+    {
+        ...
+    }
+}
+
+Then use:
+
+javac basics3.java
+java basics3
+
+If the class is:
+
+class basic3
+
+then use:
+
+java basic3
+
+Best practice:
+
+Filename: basics3.java
+Class: basics3
+
+Then:
+
+javac basics3.java
+java basics3
+
+
+==================================================
+10. DAY 7 KEY TAKEAWAYS
+==================================================
+
+1. this
+   Refers to the current object.
+
+2. static
+   Belongs to the class and is shared.
+
+3. non-static
+   Belongs to individual objects.
+
+4. private
+   Protects data from direct outside access.
+
+5. setter
+   Changes a private value.
+
+6. getter
+   Reads a private value.
+
+7. encapsulation
+   Protects data and controls access to it.
+
+8. Constructor
+   Initializes object data when the object is created.
+
+9. Scanner
+   Takes input from the user.
+
+10. Class name
+    Used to access static members, for example:
+    Testcase.projectName
+
+
+==================================================
+11. DAY 7 PROGRESS
+==================================================
+
+this keyword                 — PASSED
+static vs non-static         — PASSED
+static + user input          — PASSED
+private variables            — PASSED
+getters                      — PASSED
+setters                      — PASSED
+encapsulation exercise       — PASSED
+
+DAY 7 REMAINING:
+
+1. Inheritance
+2. Polymorphism
+3. Abstraction
+4. Final OOP practice
+
+
+==================================================
+END OF DAY 7
+==================================================
+
+Tomorrow we continue with INHERITANCE.
+
+The plan is to learn each topic slowly, complete the exercise for that topic, and then move to the next one.
