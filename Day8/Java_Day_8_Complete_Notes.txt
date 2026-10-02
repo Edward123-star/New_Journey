@@ -1,0 +1,520 @@
+JAVA LEARNING — DAY 8 COMPLETE NOTES
+========================================
+
+Topic: INHERITANCE
+Status: COMPLETED
+
+1. WHAT IS INHERITANCE?
+-----------------------
+Inheritance allows a child class to reuse fields and methods from a parent
+class.
+
+Syntax:
+
+class Child extends Parent
+{
+}
+
+Example:
+
+class GameTest extends Test
+{
+}
+
+Here:
+- Test = Parent class
+- GameTest = Child class
+
+Inheritance represents an "is-a" relationship.
+
+Example:
+GameTest is a Test.
+
+
+2. WHY USE INHERITANCE?
+-----------------------
+Inheritance helps avoid repeating common code.
+
+For example, a general Test class can contain:
+- Test name
+- Platform
+- Test result
+- Common test execution method
+
+GameTest can reuse those features and add:
+- Game name
+- Game-specific methods
+
+
+3. BASIC INHERITANCE EXAMPLE
+----------------------------
+class Test
+{
+    String testName;
+    String platform;
+
+    void executeTest()
+    {
+        System.out.println("Test execution started");
+    }
+}
+
+class GameTest extends Test
+{
+    String gameName;
+
+    void launchGame()
+    {
+        System.out.println("Game launched successfully");
+    }
+}
+
+GameTest can use both:
+
+test.executeTest();
+test.launchGame();
+
+
+4. super()
+---------
+super() is used by a child constructor to call the parent constructor.
+
+Example:
+
+class Test
+{
+    Test(String testName, String platform)
+    {
+        this.testName = testName;
+        this.platform = platform;
+    }
+}
+
+class GameTest extends Test
+{
+    GameTest(String testName, String platform, String gameName)
+    {
+        super(testName, platform);
+        this.gameName = gameName;
+    }
+}
+
+super(testName, platform) sends the values to the parent constructor.
+
+The parent constructor initializes the parent part of the child object.
+
+
+5. this KEYWORD
+---------------
+this refers to the current object.
+
+Example:
+
+class Test
+{
+    private String testName;
+
+    Test(String testName)
+    {
+        this.testName = testName;
+    }
+}
+
+Here:
+- this.testName = instance variable
+- testName = constructor parameter
+
+The pattern:
+
+this.variable = variable;
+
+is very common in Java constructors and setters.
+
+
+6. ENCAPSULATION + INHERITANCE
+------------------------------
+Parent private variables cannot be directly accessed by the child.
+
+Example:
+
+class Test
+{
+    private String testName;
+}
+
+The child cannot do:
+
+System.out.println(testName);
+
+Instead, use a getter:
+
+public String getTestName()
+{
+    return testName;
+}
+
+The child can then use:
+
+getTestName();
+
+
+7. STATIC VS NON-STATIC
+-----------------------
+Non-static variables belong to each object.
+
+Example:
+
+class Test
+{
+    String testName;
+}
+
+Every object can have a different testName.
+
+Static variables belong to the class and are shared.
+
+Example:
+
+class Test
+{
+    static String projectName = "Game Project";
+}
+
+Access it using:
+
+Test.projectName;
+
+Important:
+- Instance/non-static = object-specific
+- static = class-level/shared
+
+
+8. FINAL COMBINED EXERCISE
+--------------------------
+The Day 8 exercise combined:
+
+- User input
+- Constructors
+- this
+- static
+- Encapsulation
+- Getters/setters
+- Inheritance
+- super()
+- Parent and child methods
+- Boolean test result
+- QA/game testing example
+
+
+9. FINAL PARENT CLASS
+---------------------
+import java.util.Scanner;
+
+class Test
+{
+    static String projectName;
+
+    private String testName;
+    private String platform;
+    private boolean result;
+
+    Test(String testName, String platform, boolean result)
+    {
+        this.testName = testName;
+        this.platform = platform;
+        this.result = result;
+    }
+
+    public String getTestName()
+    {
+        return testName;
+    }
+
+    public void setTestName(String testName)
+    {
+        this.testName = testName;
+    }
+
+    public String getPlatform()
+    {
+        return platform;
+    }
+
+    public void setPlatform(String platform)
+    {
+        this.platform = platform;
+    }
+
+    public boolean getResult()
+    {
+        return result;
+    }
+
+    public void setResult(boolean result)
+    {
+        this.result = result;
+    }
+
+    void executeTest()
+    {
+        if(result)
+        {
+            System.out.println("Test Passed");
+            System.out.println("Test execution started");
+        }
+        else
+        {
+            System.out.println("Test Failed");
+        }
+    }
+}
+
+
+10. FINAL CHILD CLASS
+---------------------
+class GameTest extends Test
+{
+    private String gameName;
+
+    GameTest(String testName, String platform, boolean result,
+             String gameName)
+    {
+        super(testName, platform, result);
+        this.gameName = gameName;
+    }
+
+    public String getGameName()
+    {
+        return gameName;
+    }
+
+    public void setGameName(String gameName)
+    {
+        this.gameName = gameName;
+    }
+
+    void launchGame()
+    {
+        if(getResult())
+        {
+            System.out.println("Test Passed");
+            System.out.println("Game launched successfully");
+        }
+        else
+        {
+            System.out.println("Test Failed");
+        }
+    }
+}
+
+
+11. USER INPUT + OBJECT CREATION
+-------------------------------
+The main method used Scanner to collect:
+
+- Test name
+- Platform
+- Test result
+- Game name
+
+Example:
+
+Scanner scan = new Scanner(System.in);
+
+System.out.print("Enter test name: ");
+String testName = scan.nextLine();
+
+System.out.print("Enter platform: ");
+String platform = scan.nextLine();
+
+System.out.print("Enter result: ");
+boolean result = scan.nextBoolean();
+
+scan.nextLine();
+
+System.out.print("Enter game name: ");
+String gameName = scan.nextLine();
+
+GameTest test1 =
+    new GameTest(testName, platform, result, gameName);
+
+
+12. IMPORTANT SCANNER ISSUE
+---------------------------
+When using:
+
+boolean result = scan.nextBoolean();
+
+and then:
+
+String gameName = scan.nextLine();
+
+nextLine() can immediately consume the leftover newline.
+
+Fix:
+
+boolean result = scan.nextBoolean();
+scan.nextLine();
+String gameName = scan.nextLine();
+
+The extra nextLine() clears the leftover newline.
+
+
+13. CHILD OBJECT
+----------------
+GameTest test1 =
+    new GameTest(testName, platform, result, gameName);
+
+The GameTest object contains:
+- Parent class data
+- Child class data
+
+It can use:
+
+test1.executeTest();
+test1.launchGame();
+
+executeTest() comes from the parent.
+
+launchGame() belongs to the child.
+
+
+14. IMPORTANT ERROR CORRECTIONS
+-------------------------------
+Error 1:
+Wrong setter:
+
+public void setPlatform(boolean result)
+
+Correct:
+
+public void setResult(boolean result)
+
+A setter should match the variable it is setting.
+
+Error 2:
+Trying to access private parent variable directly from child.
+
+Wrong:
+
+if(result)
+
+Correct:
+
+if(getResult())
+
+because result is private.
+
+Error 3:
+Using:
+
+mani
+
+instead of:
+
+main
+
+Correct main method:
+
+public static void main(String[] args)
+
+
+Error 4:
+nextBoolean() followed by nextLine().
+
+Fix:
+
+scan.nextBoolean();
+scan.nextLine();
+
+
+15. JAVA COMPILE AND RUN
+------------------------
+Compile:
+
+javac basics2.java
+
+Run:
+
+java basics2
+
+Do NOT use:
+
+java basics2.java
+
+after compiling with javac.
+
+If you see:
+
+Error: Main method not found in class basics2
+
+make sure:
+1. The class contains public static void main(String[] args)
+2. You compiled the latest source:
+   javac basics2.java
+3. Then run:
+   java basics2
+
+If an old .class file is causing confusion, delete it and compile again.
+
+
+16. DAY 8 KEY CONCEPTS
+----------------------
+Inheritance:
+Child class reuses parent functionality.
+
+extends:
+Creates inheritance relationship.
+
+super():
+Calls the parent constructor.
+
+this:
+Refers to the current object.
+
+private:
+Protects data from direct outside access.
+
+getter:
+Reads private data.
+
+setter:
+Changes private data.
+
+static:
+Belongs to the class and is shared.
+
+Non-static:
+Belongs to an individual object.
+
+
+17. DAY 8 FINAL STATUS
+----------------------
+Inheritance                 PASSED
+extends                      PASSED
+super()                      PASSED
+this                         PASSED
+Encapsulation                PASSED
+Getters/setters              PASSED
+static/non-static             PASSED
+User input                   PASSED
+Scanner handling              PASSED
+Parent/child methods          PASSED
+Combined OOP exercise         PASSED
+
+🔥 DAY 8 — COMPLETED
+
+
+18. NEXT DAY
+------------
+DAY 9 — POLYMORPHISM
+
+Topics:
+- Method Overloading
+- Method Overriding
+- @Override
+- Runtime Polymorphism
+- Parent reference + child object
+- QA automation example
+
+END OF DAY 8

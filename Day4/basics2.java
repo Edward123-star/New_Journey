@@ -11,6 +11,6 @@ class basics2{
         System.out.println(score[2]);
         System.out.println(score[3]);
         System.out.println(score[4]);
-        System.out.println(score.length);
+        
     }
 }
