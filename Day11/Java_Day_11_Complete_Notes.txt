@@ -1,0 +1,262 @@
+JAVA TRAINING — DAY 11
+Topic: Exception Handling
+========================================
+
+DAY 11 OBJECTIVES
+-----------------
+By the end of Day 11, you should understand:
+1. What an exception is.
+2. How try-catch works.
+3. How execution flows after an exception.
+4. How to handle specific exceptions.
+5. How to use getMessage().
+6. How to combine exception handling with arrays, division, and String-to-integer conversion.
+
+1. WHAT IS AN EXCEPTION?
+------------------------
+An exception is an abnormal condition that interrupts the normal flow of a program.
+
+Examples:
+- Dividing an integer by zero.
+- Accessing an array index that does not exist.
+- Converting text such as "ABC" into an integer.
+
+2. TRY-CATCH
+------------
+The try block contains code that may cause an exception.
+The catch block handles a matching exception.
+
+Example:
+
+try {
+    int result = 20 / 0;
+    System.out.println(result);
+} catch (ArithmeticException e) {
+    System.out.println("Cannot divide by zero");
+}
+
+Because the division causes an exception, Java skips the remaining statements in that try block and jumps to the matching catch block.
+
+After the catch block finishes, Java continues after the try-catch structure.
+
+Important:
+- If an exception occurs inside try, the remaining statements in that try block are skipped.
+- If no exception occurs, the catch block is skipped.
+- A false if-condition is different from an exception: a false condition skips its if block, while an exception transfers control to a matching catch block.
+
+3. THE THREE EXCEPTIONS COVERED
+-------------------------------
+
+A. ArithmeticException
+----------------------
+Common cause in this lesson: integer division by zero.
+
+Example:
+int a = 20;
+int b = 0;
+
+try {
+    int result = a / b;
+} catch (ArithmeticException e) {
+    System.out.println("Cannot divide by zero");
+}
+
+B. ArrayIndexOutOfBoundsException
+---------------------------------
+Occurs when code tries to access an array position outside its valid indexes.
+
+Example:
+int[] scores = {80, 75, 90, 65, 88};
+System.out.println(scores[5]); // Invalid: valid indexes are 0 through 4.
+
+If a user enters a human-readable test case number from 1 to 5, convert it to an array index with testCase - 1.
+
+C. NumberFormatException
+------------------------
+Occurs when a String cannot be converted to an integer with Integer.parseInt().
+
+Examples:
+Integer.parseInt("90");   // Works: returns 90.
+Integer.parseInt("ABC");  // Throws NumberFormatException.
+Integer.parseInt("12.5"); // Throws NumberFormatException.
+
+4. SCANNER: nextInt() VS nextLine()
+-----------------------------------
+scan.nextInt() reads an integer. If the user types non-numeric text, it can throw InputMismatchException.
+
+scan.nextLine() reads a line as a String—even if the user types digits such as 90.
+
+Example:
+String scoreText = scan.nextLine();
+int score = Integer.parseInt(scoreText);
+
+The String "90" can be converted to the int value 90.
+The String "ABC" cannot be converted and causes NumberFormatException.
+
+When nextInt() is followed by nextLine(), the newline left after the integer is often still waiting to be read. Use an extra scan.nextLine() to consume it before reading the next full line.
+
+5. EXCEPTION MESSAGE
+--------------------
+In a catch block:
+- e.getMessage() prints the exception's message text.
+- System.out.println(e) prints the exception type and message.
+
+The exact message text can vary by Java version. For user-friendly output, print a clear message such as "Invalid test case number" or "Cannot divide by zero".
+
+6. BOOLEAN AND IF FOR VALIDATION
+--------------------------------
+Example:
+int selectedScore = 0;
+boolean validTestCase = false;
+
+try {
+    selectedScore = testResults[testCase - 1];
+    validTestCase = true;
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Invalid test case number");
+}
+
+if (validTestCase) {
+    // Only attempt the division if a valid score was selected.
+}
+
+Explanation:
+- The variable is declared outside the try-catch, so it can be accessed later in the same method.
+- It starts as false.
+- It becomes true only after the array access succeeds.
+- If an exception occurs before the assignment to true, that line is skipped, so the variable remains false.
+- The if statement checks the variable's current value.
+
+7. COMBINED EXERCISE — GAME TESTING QA REPORT
+---------------------------------------------
+This example combines all three exceptions. Each risky operation has its own try-catch so one handled exception does not stop the later checks.
+
+Save as Basics3.java (the class name is Basics3).
+
+import java.util.Scanner;
+
+class Basics3 {
+    public static void main(String[] args) {
+        int[] testResult = {100, 90, 80, 70, 60};
+
+        Scanner scan = new Scanner(System.in);
+
+        // Step 1: Select a test case
+        System.out.print("Enter a test case number (1 to 5): ");
+        int testCase = scan.nextInt();
+
+        int selectedScore = 0;
+        boolean valid = false;
+
+        try {
+            selectedScore = testResult[testCase - 1];
+            System.out.println("Selected score: " + selectedScore);
+            valid = true;
+        } catch (ArrayIndexOutOfBoundsException error) {
+            System.out.println("Invalid test case number");
+        }
+
+        // Step 2: Divide the selected score only if it is valid
+        if (valid) {
+            System.out.print("Enter a divisor: ");
+            int divisor = scan.nextInt();
+
+            try {
+                int result = selectedScore / divisor;
+                System.out.println("Calculated score: " + result);
+            } catch (ArithmeticException error) {
+                System.out.println("Cannot divide by zero");
+            }
+        }
+
+        // Step 3: Convert text into an integer
+        scan.nextLine(); // Consume the newline left by nextInt()
+
+        System.out.print("Enter another score as text: ");
+        String scoreText = scan.nextLine();
+
+        try {
+            int score = Integer.parseInt(scoreText);
+            System.out.println("Converted score: " + score);
+        } catch (NumberFormatException error) {
+            System.out.println("Invalid score format");
+        }
+
+        System.out.println("Program completed");
+        scan.close();
+    }
+}
+
+8. TEST CASES FOR THE COMBINED PROGRAM
+--------------------------------------
+
+A. All inputs valid
+Inputs:
+3
+2
+90
+
+Expected important output:
+Selected score: 80
+Calculated score: 40
+Converted score: 90
+Program completed
+
+B. Invalid test case
+Inputs:
+10
+90
+
+Expected important output:
+Invalid test case number
+Converted score: 90
+Program completed
+
+Note: When the test case is invalid, the program skips the divisor prompt and division because valid is false. The next input is therefore the text score.
+
+C. Division by zero
+Inputs:
+3
+0
+90
+
+Expected important output:
+Selected score: 80
+Cannot divide by zero
+Converted score: 90
+Program completed
+
+D. Invalid text
+Inputs:
+3
+2
+ABC
+
+Expected important output:
+Selected score: 80
+Calculated score: 40
+Invalid score format
+Program completed
+
+9. IMPORTANT TAKEAWAYS
+----------------------
+- Use try-catch to handle exceptions you expect might occur.
+- Catch a specific exception when you know which error you want to handle.
+- Keep separate risky operations in separate try-catch blocks when later operations should continue.
+- Array indexes start at 0.
+- Integer.parseInt() converts valid integer text into an int.
+- Use a boolean flag when later code depends on whether an earlier operation succeeded.
+- The line after an exception inside try is skipped; after the matching catch finishes, execution continues after the try-catch structure.
+- This exercise does not handle non-numeric input for nextInt(). That can cause InputMismatchException, which was outside the scope of this exercise.
+
+DAY 11 STATUS
+-------------
+Completed: Basic exception handling and a combined exercise using
+ArithmeticException, ArrayIndexOutOfBoundsException, and NumberFormatException.
+
+NEXT TOPIC
+----------
+Day 12: Java Collections
+- ArrayList and List
+- HashSet and Set
+- HashMap and Map
