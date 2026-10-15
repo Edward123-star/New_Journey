@@ -1,0 +1,337 @@
+JAVA LEARNING — DAY 12 COMPLETE NOTES
+Topic: Java Collections Framework
+Purpose: Beginner-friendly revision notes with gaming QA examples
+
+============================================================
+1. WHAT ARE COLLECTIONS?
+============================================================
+
+Collections help us store and manage groups of objects.
+
+Examples in QA:
+- A list of failed test descriptions
+- A set of unique bug IDs
+- A map connecting test-case IDs to their results
+
+The main collections covered on Day 12:
+- List / ArrayList
+- LinkedList
+- Set / HashSet
+- Map / HashMap
+
+============================================================
+2. ARRAY VS ARRAYLIST
+============================================================
+
+Array:
+- Usually has a fixed length after creation.
+- Uses index access with square brackets: scores[0].
+- Uses the length property: scores.length.
+
+ArrayList:
+- Can grow or shrink as items are added or removed.
+- Uses get(index) to retrieve an item.
+- Uses size() to count items.
+- Uses add() to add an item.
+- Uses set(index, value) to replace an item.
+- Uses remove(index) to remove an item.
+- Uses contains(value) to check for an item.
+
+Example:
+
+import java.util.ArrayList;
+
+class Basics4 {
+    public static void main(String[] args) {
+        ArrayList<String> failedTests = new ArrayList<>();
+
+        failedTests.add("Game crashes on startup");
+        failedTests.add("Audio missing in cutscene");
+        failedTests.add("Controller disconnects");
+
+        System.out.println("Failed tests: " + failedTests);
+        System.out.println("Total: " + failedTests.size());
+        System.out.println("Second failure: " + failedTests.get(1));
+        System.out.println("Audio test found: "
+                + failedTests.contains("Audio missing in cutscene"));
+    }
+}
+
+Important:
+- ArrayList<String> stores String objects.
+- For numeric values, use wrapper types such as ArrayList<Integer>, not ArrayList<int>.
+- contains() checks for an exact match, not partial text.
+- Java class names conventionally use PascalCase, e.g. Basics4.
+- The filename should match the public class name.
+
+============================================================
+3. LIST AND ARRAYLIST
+============================================================
+
+List is an interface: it describes the operations a list should support.
+ArrayList is a concrete implementation of List.
+
+Preferred flexible declaration:
+
+import java.util.ArrayList;
+import java.util.List;
+
+List<String> failedTests = new ArrayList<>();
+
+Why use List on the left?
+- The variable depends on the List interface rather than one specific implementation.
+- It is easier to change the implementation later if requirements change.
+
+You cannot instantiate an interface directly:
+List<String> items = new List<>(); // Invalid
+
+Valid alternatives:
+List<String> items = new ArrayList<>();
+List<String> items = new LinkedList<>();
+
+============================================================
+4. LINKEDLIST
+============================================================
+
+LinkedList is a sequence collection. Java's LinkedList is doubly linked:
+each node links to the previous and next node.
+
+Useful methods:
+- add(value)
+- get(index)
+- size()
+- remove(index)
+- addFirst(value)
+- addLast(value)
+- getFirst()
+- getLast()
+- removeFirst()
+- removeLast()
+
+General performance guidance:
+- ArrayList indexed get: typically O(1), so it is usually better for frequent index access.
+- LinkedList indexed get: O(n), because it must traverse nodes.
+- ArrayList appending: amortized O(1).
+- LinkedList operations at either end: typically O(1).
+- Inserting/removing in the middle of a LinkedList still requires locating the position first.
+
+For ordinary automation lists and frequent index access, ArrayList is a sensible default.
+LinkedList can be useful for queue/deque-style operations at both ends.
+
+Example:
+
+import java.util.LinkedList;
+
+class Basics5 {
+    public static void main(String[] args) {
+        LinkedList<String> failedTests = new LinkedList<>();
+
+        failedTests.add("Game crashes");
+        failedTests.add("Audio missing");
+        failedTests.add("Controller disconnects");
+
+        System.out.println(failedTests);
+        System.out.println("Total failures: " + failedTests.size());
+        System.out.println("First failure: " + failedTests.get(0));
+    }
+}
+
+============================================================
+5. SET AND HASHSET
+============================================================
+
+A Set stores unique elements. It does not allow duplicate elements.
+
+HashSet:
+- Implements Set.
+- Ignores duplicate additions.
+- Does not guarantee iteration order.
+- Does not support index-based access such as get(0).
+- Useful for storing unique bug IDs or test IDs.
+
+Example:
+
+import java.util.HashSet;
+import java.util.Set;
+
+class Basics6 {
+    public static void main(String[] args) {
+        Set<String> bugIds = new HashSet<>();
+
+        bugIds.add("BUG-101");
+        bugIds.add("BUG-102");
+        bugIds.add("BUG-103");
+        bugIds.add("BUG-101"); // Duplicate: no extra element
+
+        System.out.println("Bug IDs: " + bugIds);
+        System.out.println("Total unique bugs: " + bugIds.size());
+        System.out.println("BUG-101 present: " + bugIds.contains("BUG-101"));
+        System.out.println("BUG-104 present: " + bugIds.contains("BUG-104"));
+    }
+}
+
+Expected facts:
+- There are 3 unique IDs.
+- contains("BUG-101") returns true.
+- contains("BUG-104") returns false.
+- The printed order may vary.
+
+Common Set methods:
+- add(value)
+- remove(value)
+- contains(value)
+- size()
+- isEmpty()
+
+Remember:
+Set is an interface, HashSet is an implementation.
+Set<String> bugIds = new HashSet<>();
+
+============================================================
+6. MAP AND HASHMAP
+============================================================
+
+A Map stores key-value pairs.
+
+QA example:
+TC-101 -> Passed
+TC-102 -> Failed
+TC-103 -> Blocked
+
+HashMap:
+- Implements Map.
+- Does not allow duplicate keys.
+- Allows different keys to have the same value.
+- Does not guarantee iteration order.
+- put(existingKey, newValue) updates the existing value.
+
+Example:
+
+import java.util.HashMap;
+import java.util.Map;
+
+class Basics7 {
+    public static void main(String[] args) {
+        Map<String, String> testResults = new HashMap<>();
+
+        testResults.put("TC-101", "Passed");
+        testResults.put("TC-102", "Failed");
+        testResults.put("TC-103", "Blocked");
+
+        System.out.println("All results: " + testResults);
+        System.out.println("TC-102 result: " + testResults.get("TC-102"));
+        System.out.println("TC-104 exists: " + testResults.containsKey("TC-104"));
+
+        testResults.put("TC-102", "Passed"); // Updates existing key
+        System.out.println("Updated results: " + testResults);
+        System.out.println("Number of entries: " + testResults.size());
+    }
+}
+
+Common Map methods:
+- put(key, value): add or update
+- get(key): retrieve value for key
+- containsKey(key): check whether key exists
+- containsValue(value): check whether a value exists
+- remove(key): remove entry by key
+- size(): count key-value pairs
+
+Important distinction:
+- testResults.containsKey(TCverify1) checks the value stored in the variable.
+- testResults.containsKey("TCverify1") searches for the literal text TCverify1.
+Use quotes for literal text, not for a variable name.
+
+If get(key) is used for a key that does not exist, HashMap returns null by default.
+You can check containsKey(key) first if you need to distinguish a missing key.
+
+============================================================
+7. INTERFACE VS IMPLEMENTATION
+============================================================
+
+The common pattern is:
+
+List<String> names = new ArrayList<>();
+Set<String> uniqueIds = new HashSet<>();
+Map<String, String> statuses = new HashMap<>();
+
+Left side:
+- List, Set, Map are interfaces that define operations.
+
+Right side:
+- ArrayList, HashSet, HashMap are concrete implementations.
+
+This makes code more flexible and easier to change.
+
+============================================================
+8. COLLECTIONS COMPARISON
+============================================================
+
+ArrayList:
+- Duplicates allowed
+- Index access available
+- Good general-purpose list and frequent index access
+
+LinkedList:
+- Duplicates allowed
+- Index access available but slower than ArrayList for large lists
+- Useful for operations at both ends
+
+HashSet:
+- Duplicate elements not allowed
+- No index-based access
+- Good for uniqueness checks
+
+HashMap:
+- Keys are unique
+- Values may repeat
+- Retrieves a value using its key
+- Good for mapping test-case IDs to statuses
+
+============================================================
+9. DAY 12 PRACTICAL QA TAKEAWAYS
+============================================================
+
+Use ArrayList when:
+- You need an ordered list of test results.
+- You need to retrieve elements by index.
+
+Use HashSet when:
+- You need unique bug IDs or test IDs.
+- You want duplicate IDs ignored automatically.
+
+Use HashMap when:
+- You need to associate test-case IDs with statuses.
+- You want to look up a result using its ID.
+- You need to update a result by key.
+
+Use LinkedList when:
+- You specifically benefit from queue/deque-style operations at the beginning and end.
+- Do not assume it is faster for every insertion or removal.
+
+============================================================
+10. DAY 12 REVISION ANSWERS
+============================================================
+
+1. 10,000 results with frequent index access: ArrayList.
+2. Store unique bug IDs and ignore duplicates: HashSet.
+3. Associate each test-case ID with its result: HashMap.
+
+All three answers are correct.
+
+============================================================
+11. CHECKLIST
+============================================================
+
+[✓] Understand ArrayList and List.
+[✓] Understand LinkedList and when it may be useful.
+[✓] Understand Set and HashSet for unique values.
+[✓] Understand Map and HashMap for key-value pairs.
+[✓] Use add(), get(), set(), remove(), size(), contains().
+[✓] Use put(), containsKey(), containsValue(), and Map.get().
+[✓] Understand that HashSet and HashMap do not guarantee iteration order.
+[✓] Understand that duplicate HashMap keys update the existing value.
+[✓] Complete the Day 12 revision quiz: 3/3 correct.
+
+NEXT:
+Day 13 — Java revision and practical QA exercises, combining loops, conditions,
+methods, OOP, exceptions, and collections in a small console-based test-result manager.
