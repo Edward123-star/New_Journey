@@ -1,0 +1,238 @@
+JAVA LEARNING — DAY 13 NOTES
+=============================
+
+Focus:
+- Methods with multiple parameters
+- Method overloading
+- String handling revision
+- Plan for Day 14
+
+Learning approach:
+Understand the concept, study a complete example, then practise independently.
+The goal is to understand the logic—not to make every practice exercise perfect.
+
+--------------------------------------------------
+1. METHODS WITH MULTIPLE PARAMETERS
+--------------------------------------------------
+
+A Java method can accept more than one parameter. Separate parameters with commas.
+
+Example:
+
+class GameTest {
+
+    static void compareResult(String expected, String actual) {
+        if (expected.equals(actual)) {
+            System.out.println("Test PASS");
+        } else {
+            System.out.println("Test FAIL");
+        }
+    }
+
+    public static void main(String[] args) {
+        compareResult("Victory", "Victory");
+        compareResult("Defeat", "Victory");
+        compareResult("Game Over", "Game Over");
+    }
+}
+
+Expected output:
+
+Test PASS
+Test FAIL
+Test PASS
+
+How it works:
+- expected and actual are method parameters.
+- In compareResult("Victory", "Victory"), the first argument is assigned to expected and the second to actual.
+- String.equals() compares the contents of two Strings.
+- The method can be reused with different arguments.
+
+Automation QA use:
+Compare an expected UI message with the actual message shown by a game or application.
+
+--------------------------------------------------
+2. METHOD OVERLOADING
+--------------------------------------------------
+
+Method overloading means declaring multiple methods with the same name in the same class, but with different parameter lists.
+
+Example:
+
+class GameTest {
+
+    static void logTest(String testName) {
+        System.out.println("Test: " + testName);
+    }
+
+    static void logTest(String testName, String status) {
+        System.out.println("Test: " + testName + " | Status: " + status);
+    }
+
+    static void logTest(String testName, String status, int score) {
+        System.out.println("Test: " + testName + " | Status: " + status + " | Score: " + score);
+    }
+
+    public static void main(String[] args) {
+        logTest("PlayerMovement");
+        logTest("EnemyAI", "PASS");
+        logTest("HealthSystem", "FAIL", 45);
+    }
+}
+
+Expected output:
+
+Test: PlayerMovement
+Test: EnemyAI | Status: PASS
+Test: HealthSystem | Status: FAIL | Score: 45
+
+Important rules:
+- Java selects the matching overloaded method using the number, types, and order of arguments.
+- Changing only parameter names does not create an overload.
+- Changing only the return type does not create an overload.
+- Overloads can differ by parameter count or parameter types/order.
+
+Automation QA use:
+A logging/reporting helper may accept just a test name, a test name plus status, or a test name plus status and execution time.
+
+--------------------------------------------------
+3. STRING HANDLING REVISION
+--------------------------------------------------
+
+Strings are used frequently in automation testing to validate page titles, UI labels, error messages, and expected versus actual results.
+
+Common methods:
+
+1. equals()
+   Compares String contents with case sensitivity.
+   Example: "PASS".equals("PASS") -> true
+
+2. equalsIgnoreCase()
+   Compares String contents without considering letter case.
+   Example: "PASS".equalsIgnoreCase("pass") -> true
+
+3. contains()
+   Checks whether a String contains a substring.
+   Example: "Player connection failed".contains("failed") -> true
+   Note: contains() is case-sensitive.
+
+4. trim()
+   Removes leading and trailing whitespace.
+   Example: " PASS ".trim() -> "PASS"
+   It does not remove spaces between words.
+
+5. length()
+   Returns the number of characters in a String.
+   Example: "Victory".length() -> 7
+   Remember: String uses length(), but an array uses length without parentheses.
+
+6. toUpperCase()
+   Converts letters to uppercase.
+   Example: "fail".toUpperCase() -> "FAIL"
+
+7. toLowerCase()
+   Converts letters to lowercase.
+   Example: "PASS".toLowerCase() -> "pass"
+
+Example:
+
+class StringRevision {
+
+    public static void main(String[] args) {
+        String expected = "Mission Completed";
+        String actual = " mission completed ";
+
+        if (expected.equalsIgnoreCase(actual.trim())) {
+            System.out.println("Test PASS");
+        } else {
+            System.out.println("Test FAIL");
+        }
+
+        String errorMessage = "Player connection failed";
+
+        if (errorMessage.contains("failed")) {
+            System.out.println("Connection error detected");
+        }
+
+        System.out.println("Message length: " + actual.length());
+        System.out.println("Uppercase: " + actual.toUpperCase());
+    }
+}
+
+Note:
+- trim() removes whitespace at the beginning and end.
+- equalsIgnoreCase() ignores capitalization.
+- actual.length() counts all characters, including spaces.
+- toUpperCase() returns an uppercase String; it does not change the original String object.
+
+--------------------------------------------------
+4. IMPORTANT JAVA REMINDERS
+--------------------------------------------------
+
+- Standard Java entry point:
+  public static void main(String[] args)
+
+- Compare String contents using equals() or equalsIgnoreCase(), not == for ordinary content comparisons.
+
+- Array length:
+  scores.length
+
+- String length:
+  message.length()
+
+- ArrayList size:
+  scores.size()
+
+- Scanner input:
+  Scanner scan = new Scanner(System.in);
+  String input = scan.nextLine();
+
+- Close Scanner when finished with input:
+  scan.close();
+
+- Java naming conventions:
+  Class names usually use PascalCase, e.g. GameTest.
+  Method and variable names usually use camelCase, e.g. checkHealth.
+
+- Practice is for learning. Focus first on understanding the concept and writing correct logic. Improve formatting and naming as you go.
+
+--------------------------------------------------
+5. DAY 13 PROGRESS SUMMARY
+--------------------------------------------------
+
+Covered:
+- Methods with multiple parameters
+- Passing arguments into methods
+- Comparing expected and actual String results
+- Reusing a method across multiple test cases
+- Method overloading
+- String handling revision: equals(), equalsIgnoreCase(), contains(), trim(),
+  length(), toUpperCase(), and toLowerCase()
+
+The health-status practice used Strings such as "Normal". This is a valid example of comparing text-based status values, even though the original exercise described numeric health values.
+
+Day 13 is considered complete for now. Extra revision and the mini-project move to Day 14.
+
+--------------------------------------------------
+6. DAY 14 PLAN
+--------------------------------------------------
+
+1. Mixed Core Java practice:
+   - conditions and loops
+   - arrays
+   - methods
+   - Strings
+   - exceptions
+   - collections
+
+2. Build a console-based Game Test Result Manager:
+   - enter or store test results
+   - classify PASS, FAIL, and SKIP
+   - count test outcomes
+   - use methods to keep the logic organised
+
+3. Review real knowledge gaps found during practice.
+
+4. Decide whether Java fundamentals are ready for Selenium WebDriver.
+
+END OF DAY 13 NOTES
